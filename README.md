@@ -2,14 +2,15 @@
 
 Source for agistrategy.app. Cloudflare Pages rebuilds the site every time this repository changes.
 
-- `glossary/entries/` has one file per glossary entry. The file name is the entry's web address, so `scheming.md` becomes `agistrategy.app/glossary/#scheming`.
-- `glossary/units.txt` lists the course units.
-- `templates/glossary.html` controls the look of the glossary.
+- Each glossary entry is its own `.md` file, e.g. `scheming.md`. The file name is the entry's web address, so `scheming.md` becomes `agistrategy.app/glossary/#scheming`.
+- `units.txt` lists the course units.
+- `glossary.html` controls the look of the glossary.
+- Files can sit side by side or in folders; the build finds them either way.
 - `build.py` turns all of the above into the finished site in `public/`. Don't edit `public/` by hand.
 
 ## Editing an entry
 
-1. Open the entry's file in `glossary/entries/` on GitHub and click the pencil icon.
+1. Open the entry's file on GitHub (press `t` to search file names) and click the pencil icon.
 2. Edit the text. Keep the bold labels exactly as they are, e.g. `**Definition:**`.
 3. Click **Commit changes**. The site updates in about a minute.
 

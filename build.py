@@ -86,13 +86,38 @@ def norm(s):
     return re.sub(r'[^a-z0-9 ]', '', s.lower().replace('-', ' ')).strip()
 
 
+def find_files():
+    """Find the site's files whether they sit in folders or all side by side."""
+    found = {'units': None, 'template': None, 'entries': []}
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames if d not in ('public', '.git', 'node_modules')]
+        for name in filenames:
+            path = os.path.join(dirpath, name)
+            if name == 'units.txt':
+                found['units'] = path
+            elif name == 'glossary.html':
+                found['template'] = path
+            elif name.endswith('.md') and name.lower() != 'readme.md':
+                head = open(path, encoding='utf-8').read(600)
+                if head.startswith('---') and re.search(r'^unit:', head, re.M):
+                    found['entries'].append(path)
+    if not found['units']: problems.append('could not find units.txt')
+    if not found['template']: problems.append('could not find glossary.html')
+    return found
+
+
 def build_glossary():
-    gdir = os.path.join(ROOT, 'glossary')
+    files = find_files()
+    if problems:
+        return 0
     units = []
-    for line in open(os.path.join(gdir, 'units.txt'), encoding='utf-8'):
+    for line in open(files['units'], encoding='utf-8'):
         if ':' in line:
             n, t = line.split(':', 1); units.append({'n': int(n), 'title': t.strip()})
-    entries = [e for e in (read_entry(p) for p in sorted(glob.glob(os.path.join(gdir, 'entries', '*.md')))) if e]
+    entries = [e for e in (read_entry(p) for p in sorted(files['entries'])) if e]
+    ids = [e['id'] for e in entries]
+    for i in set(ids):
+        if ids.count(i) > 1: problems.append(f'two entries are both named {i}.md')
     entries.sort(key=lambda e: (e['unit'], e['order'], e['title'].lower()))
 
     # Related terms can be written as an entry's title, short name, alias, or file name.
@@ -122,7 +147,7 @@ def build_glossary():
         del e['order']
 
     data = json.dumps({'units': units, 'entries': entries}, ensure_ascii=False).replace('</', '<\\/')
-    tpl = open(os.path.join(ROOT, 'templates', 'glossary.html'), encoding='utf-8').read()
+    tpl = open(files['template'], encoding='utf-8').read()
     page = ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             '<meta name="description" content="A plain-language glossary of AGI strategy terms, organized by the units of BlueDot Impact\'s AGI Strategy course.">'
