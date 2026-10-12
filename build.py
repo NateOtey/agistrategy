@@ -172,7 +172,6 @@ def read_meta(path):
 
 def build_player_images():
     """Look up card images and write an image review page with credits."""
-    sys.path.insert(0, ROOT)
     import player_images
     cards = sorted((read_meta(p) for p in find_files()['players']),
                    key=lambda c: (int(c.get('group', 0) or 0), float(c.get('order', 0) or 0)))
@@ -222,6 +221,11 @@ if __name__ == '__main__':
         print('Build stopped. Fix these and try again:\n  ' + '\n  '.join(problems))
         sys.exit(1)
     print(f'Built {n} glossary entries into public/')
+    # The helper scripts may sit at the top level or in a folder; find them either way.
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames if d not in ('public', '.git')]
+        if 'build_players.py' in filenames or 'players_data.py' in filenames or 'player_images.py' in filenames:
+            sys.path.insert(0, dirpath)
     import build_players
     r = build_players.build(ROOT, os.path.join(OUT, 'players-and-incentives'))
     if r:

@@ -91,7 +91,14 @@ def build(root, out_dir, artifact_path=None):
         'timeline': sorted(PD.TIMELINE, key=lambda t: t[0]),
     }
     blob = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
-    tpl = open(os.path.join(root, 'templates', 'players.html'), encoding='utf-8').read() if os.path.exists(os.path.join(root, 'templates', 'players.html')) else open(os.path.join(root, 'players.html'), encoding='utf-8').read()
+    tpl_path = None
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames if d not in ('public', '.git')]
+        if 'players.html' in filenames:
+            tpl_path = os.path.join(dirpath, 'players.html'); break
+    if not tpl_path:
+        print('Players page skipped: could not find players.html'); return 0
+    tpl = open(tpl_path, encoding='utf-8').read()
     body = tpl.replace('__DATA__', blob)
     os.makedirs(out_dir, exist_ok=True)
     page = ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
