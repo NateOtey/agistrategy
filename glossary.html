@@ -1,0 +1,464 @@
+<title>AGI Strategy Glossary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a deck of index cards, one row per course unit (or one per letter), each opening into a full reading view; plus a flashcard study mode and a link map. */
+:root{
+  --bg:#F2F5FA; --surface:#FFFFFF; --sunk:#E8EDF5; --ink:#16223A; --muted:#58657F; --line:#D6DEEA; --accent:#2B59C3; --accent-ink:#FFFFFF;
+  --u1:#2B59C3; --u2:#0B7F73; --u3:#B8423A; --u4:#6A4CB8; --u5:#B07A0C;
+  --shadow:0 1px 2px rgba(22,34,58,.06),0 6px 20px rgba(22,34,58,.06);
+  --scrim:rgba(14,22,40,.42);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1322; --surface:#141E31; --sunk:#1A2640; --ink:#E5EBF6; --muted:#9AA7C0; --line:#27334B; --accent:#7EA2F2; --accent-ink:#0C1322;
+  --u1:#7EA2F2; --u2:#4CC2B3; --u3:#EE8A80; --u4:#AE97F0; --u5:#E3B455;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); --scrim:rgba(3,6,14,.66); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0C1322; --surface:#141E31; --sunk:#1A2640; --ink:#E5EBF6; --muted:#9AA7C0; --line:#27334B; --accent:#7EA2F2; --accent-ink:#0C1322;
+  --u1:#7EA2F2; --u2:#4CC2B3; --u3:#EE8A80; --u4:#AE97F0; --u5:#E3B455;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); --scrim:rgba(3,6,14,.66); color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--display);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,3vw,32px)}
+
+/* header */
+header.top{padding-block:28px 14px}
+.brand{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.brand h1{font-size:clamp(28px,4.4vw,44px);font-weight:750;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.sub{color:var(--muted);margin:8px 0 0;max-width:62ch;font-size:15px}
+
+/* control bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;flex-direction:column;gap:10px;padding-block:12px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.search{flex:1 1 260px;min-width:0;position:relative}
+.search input{width:100%;font:inherit;font-size:15px;padding:10px 38px 10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.search input::placeholder{color:var(--muted)}
+.search kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 6px;pointer-events:none}
+.seg{display:inline-flex;background:var(--sunk);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:650;font-size:14px;color:var(--muted);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.seg-label{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.group{display:inline-flex;align-items:center;gap:6px}
+.jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.jump::-webkit-scrollbar{display:none}
+.jump button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px;font-weight:650;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.jump button:disabled{opacity:.35;cursor:default}
+.jump.letters button{width:32px;justify-content:center;padding:5px 0;font-family:var(--mono);font-weight:500}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--uc,var(--accent));flex:none}
+
+/* cards view */
+main{padding-block:18px 64px}
+.count{font-family:var(--mono);font-size:12px;color:var(--muted);margin:0 0 6px}
+section.grp{scroll-margin-top:150px;margin-top:26px}
+.grp-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--uc)}
+.grp-head h2{margin:0;font-size:24px;font-weight:750;letter-spacing:-.01em}
+.grp-head .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.grp-head .letter{font-size:40px;line-height:1;font-weight:750;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{position:relative;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;min-width:0;transition:border-color .15s,transform .15s,box-shadow .15s}
+.card:hover{border-color:var(--uc);transform:translateY(-2px);box-shadow:var(--shadow)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--uc)}
+.card h3{margin:0;font-size:17px;line-height:1.2;font-weight:650;text-wrap:balance;color:var(--ink)}
+.card p{margin:0;font-family:var(--read);font-size:14.5px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .links{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:auto}
+.also{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.also span.lbl{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
+.alias{border:1px dashed var(--line);background:transparent;border-radius:8px;padding:4px 9px;font-size:13px;cursor:pointer;color:var(--ink)}
+.alias b{font-weight:400;color:var(--muted)}
+.alias:hover{border-color:var(--uc);border-style:solid}
+.empty{padding:40px 0;color:var(--muted);font-family:var(--read);font-size:17px}
+
+/* reader */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40}
+.reader{position:fixed;z-index:41;inset:max(24px,env(safe-area-inset-top,0px)) 0 24px;margin:0 auto;width:min(780px,calc(100% - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.r-top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.r-top .pos{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:auto}
+.iconbtn{border:1px solid var(--line);background:var(--surface);border-radius:8px;width:34px;height:34px;display:inline-grid;place-items:center;cursor:pointer;font-size:16px;line-height:1}
+.iconbtn:hover{border-color:var(--uc,var(--accent))}
+.r-body{overflow-y:auto;padding:22px clamp(18px,5vw,44px) 32px;overscroll-behavior:contain}
+.r-body h2{font-size:clamp(26px,4vw,34px);line-height:1.08;letter-spacing:-.02em;font-weight:750;margin:6px 0 4px;text-wrap:balance}
+.akas{font-family:var(--mono);font-size:12px;color:var(--muted);margin:0 0 14px}
+.sec{margin-top:20px}
+.sec h4{margin:0 0 6px;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--uc)}
+.prose{font-family:var(--read);font-size:17px;line-height:1.6;max-width:66ch}
+.prose p{margin:0 0 .7em}
+.prose ul{margin:.2em 0 .7em;padding-left:1.15em}
+.prose li{margin:.25em 0}
+.prose blockquote{margin:.6em 0;padding:10px 14px;border-left:3px solid var(--uc);background:var(--sunk);border-radius:0 8px 8px 0;font-family:var(--mono);font-size:14px;line-height:1.5}
+.sec.def .prose{font-size:18.5px}
+.sec.ex .prose{background:var(--sunk);border-radius:10px;padding:14px 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px 6px 10px;cursor:pointer;font-size:14px;display:inline-flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--uc)}
+.r-foot{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line)}
+.navbtn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;cursor:pointer;text-align:left;min-width:0;display:flex;flex-direction:column;gap:1px}
+.navbtn small{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.navbtn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:650;font-size:14px}
+.navbtn.next{text-align:right;align-items:flex-end}
+.navbtn:disabled{visibility:hidden}
+.copy{border:0;background:transparent;font-family:var(--mono);font-size:12px;color:var(--muted);cursor:pointer;padding:6px 8px;border-radius:6px}
+.copy:hover{color:var(--ink)}
+
+/* study */
+.study{display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:12px}
+.study-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+.study select{font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:650;font-size:14px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.flip{width:min(640px,100%);aspect-ratio:3/2;max-height:460px;perspective:1600px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flip.on .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 26px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.face.front{justify-content:center;align-items:flex-start;background-image:repeating-linear-gradient(to bottom,transparent 0 31px,color-mix(in srgb,var(--line) 70%,transparent) 31px 32px);background-position:0 60px}
+.face.front h3{font-size:clamp(26px,5vw,40px);margin:0;line-height:1.05;letter-spacing:-.02em;font-weight:750;text-wrap:balance}
+.face.front .hint{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:auto}
+.face.back{transform:rotateY(180deg)}
+.back-title{margin:0;font-size:20px;font-weight:750;letter-spacing:-.01em;line-height:1.15}
+.face.back .prose{font-size:16px;overflow-y:auto;min-height:0;flex:1}
+.face .top{display:flex;justify-content:space-between;align-items:center;width:100%}
+.face .ct{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.face.back a.more{font-family:var(--mono);font-size:12px;cursor:pointer}
+.study-nav{display:flex;gap:10px}
+
+/* map */
+.mapwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:8px}
+.mapwrap svg{display:block;width:100%;min-width:760px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:10px 0 4px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.map-note{font-family:var(--read);color:var(--muted);font-size:15px;margin:4px 0 0;max-width:70ch}
+svg .edge{stroke:var(--line);stroke-width:1.2}
+svg .edge.hi{stroke:var(--ink);stroke-opacity:.55;stroke-width:1.6}
+svg .node circle{stroke:var(--surface);stroke-width:2;cursor:pointer}
+svg .node text{font-family:var(--display);font-size:11.5px;font-weight:650;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3.5px;stroke-linejoin:round;pointer-events:none}
+svg.dim .node{opacity:.18}
+svg.dim .node.hi{opacity:1}
+svg.dim .edge{opacity:.15}
+svg.dim .edge.hi{opacity:1}
+
+footer.foot{border-top:1px solid var(--line);padding-block:20px 40px;color:var(--muted);font-size:13px}
+footer.foot p{margin:4px 0;max-width:80ch}
+body.lock{overflow:hidden}
+@media (max-width:560px){
+  .bar{position:static}
+  .reader{inset:0;width:100%;border-radius:0;border:0}
+  .r-foot{grid-template-columns:1fr 1fr}
+  .r-foot .copy{grid-column:1/-1;order:3}
+  .search kbd{display:none}
+  .grid{grid-template-columns:1fr}
+  .flip{aspect-ratio:4/5;max-height:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}
+  .flip-inner{transform-style:flat}
+  .flip.on .front{visibility:hidden}
+  .flip:not(.on) .back{visibility:hidden}
+  .face.back{transform:none}
+  .flip.on .flip-inner{transform:none}
+}
+</style>
+
+<header class="top wrap">
+  <div class="brand">
+    <h1>AGI Strategy Glossary</h1>
+    <span class="pill">Prototype · v0.1</span>
+  </div>
+  <p class="sub">Plain-language definitions of the ideas behind the AGI Strategy course, each with an example, why it matters for strategy, where people disagree, and where to read more.</p>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="controls">
+      <label class="search" for="q"><span class="seg-label" style="position:absolute;left:-9999px">Search terms</span>
+        <input id="q" type="search" placeholder="Search..." aria-label="Search the glossary" autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+      <span class="group"><span class="seg-label">Order</span>
+        <span class="seg" role="group" aria-label="Order entries">
+          <button id="sort-unit" data-sort="unit" aria-pressed="true">By unit</button>
+          <button id="sort-az" data-sort="az" aria-pressed="false">A–Z</button>
+        </span>
+      </span>
+      <span class="group"><span class="seg-label">View</span>
+        <span class="seg" role="group" aria-label="View">
+          <button id="view-cards" data-view="cards" aria-pressed="true">Cards</button>
+          <button id="view-study" data-view="study" aria-pressed="false">Study</button>
+          <button id="view-map" data-view="map" aria-pressed="false">Map</button>
+        </span>
+      </span>
+    </div>
+    <nav class="jump" id="jump" aria-label="Jump to section"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+  <div id="cards"></div>
+  <div id="study" class="study" hidden>
+    <div class="study-controls">
+      <select id="study-unit" aria-label="Which cards to study"></select>
+      <button class="btn" id="shuffle">Shuffle</button>
+      <span class="count" id="study-count" style="margin:0"></span>
+    </div>
+    <div class="flip" id="flip" tabindex="0" role="button" aria-label="Flip card">
+      <div class="flip-inner">
+        <div class="face front" id="front"></div>
+        <div class="face back" id="back"></div>
+      </div>
+    </div>
+    <div class="study-nav">
+      <button class="btn" id="s-prev">← Prev</button>
+      <button class="btn primary" id="s-flip">Flip</button>
+      <button class="btn" id="s-next">Next →</button>
+    </div>
+    <p class="count" style="text-align:center">Keyboard: ← → to move, space to flip</p>
+  </div>
+  <div id="map" hidden>
+    <div class="legend" id="legend"></div>
+    <p class="map-note">Each dot is an entry; each line is a "Related terms" link. Hover to see an entry's neighbors, click to open it. This view is experimental.</p>
+    <div class="mapwrap"><svg id="svg" viewBox="0 0 1100 820" role="img" aria-label="Map of glossary terms and their links"></svg></div>
+  </div>
+</main>
+
+<footer class="foot wrap">
+  <p>An unofficial companion to BlueDot Impact's AGI Strategy course, compiled by Nate Otey. Not affiliated with or endorsed by BlueDot Impact.</p>
+  <p>Last updated October 11, 2026. Time-sensitive claims are dated in the entries; the field moves quickly, so check the linked sources.</p>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<article class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="r-title">
+  <div class="r-top">
+    <span class="tag" id="r-tag"></span>
+    <span class="pos" id="r-pos"></span>
+    <button class="iconbtn" id="r-close" aria-label="Close">✕</button>
+  </div>
+  <div class="r-body" id="r-body"></div>
+  <div class="r-foot">
+    <button class="navbtn prev" id="r-prev"><small>← Previous</small><span></span></button>
+    <button class="copy" id="r-copy">Copy link to this entry</button>
+    <button class="navbtn next" id="r-next"><small>Next →</small><span></span></button>
+  </div>
+</article>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('data').textContent);
+const E=D.entries, U=D.units, byId=Object.fromEntries(E.map(e=>[e.id,e]));
+const docOrder=E.map(e=>e.id);
+const azOrder=[...E].sort((a,b)=>a.title.localeCompare(b.title,'en',{sensitivity:'base'})).map(e=>e.id);
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uc=n=>`var(--u${n})`;
+const unitName=n=>U.find(u=>u.n===n).title;
+const store={get(k,d){try{return localStorage.getItem(k)??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+let sort=store.get('gl-sort','unit'); if(!['unit','az'].includes(sort)) sort='unit';
+let view='cards', q='';
+
+function matches(e){ if(!q) return true; return q.split(/\s+/).every(w=>e.text.includes(w)); }
+function order(){ return (sort==='unit'?docOrder:azOrder).map(id=>byId[id]); }
+function visible(){ return order().filter(matches); }
+function firstLetter(t){ const c=t.trim()[0].toUpperCase(); return /[A-Z]/.test(c)?c:'#'; }
+
+function cardHTML(e){
+  return `<button class="card" style="--uc:${uc(e.unit)}" data-open="${e.id}">
+    <span class="tag"><span class="dot"></span>Unit ${e.unit}</span>
+    <h3>${esc(e.title)}</h3><p>${esc(e.lede)}</p>
+    <span class="links">${e.related.length} related terms</span></button>`;
+}
+
+function renderCards(){
+  const list=visible(); const el=$('#cards');
+  let h=`<p class="count">${list.length===E.length?`${E.length} terms`:`${list.length} of ${E.length} terms match “${esc(q)}”`}</p>`;
+  if(!list.length){ el.innerHTML=h+`<p class="empty">No terms match that search. Try a broader word, such as “risk” or “training”.</p>`; renderJump([]); return; }
+  if(sort==='unit'){
+    for(const u of U){
+      const items=list.filter(e=>e.unit===u.n); if(!items.length) continue;
+      h+=`<section class="grp" id="g-u${u.n}" style="--uc:${uc(u.n)}"><div class="grp-head"><span class="eyebrow">Unit ${u.n}</span><h2>${esc(u.title)}</h2><span class="n">${items.length} terms</span></div><div class="grid">${items.map(cardHTML).join('')}</div></section>`;
+    }
+  } else {
+    const groups={};
+    for(const e of list){ (groups[firstLetter(e.title)]??=[]).push(e); }
+    const aliasGroups={};
+    for(const e of E){ for(const a of e.aliases){ if(q && !(a.toLowerCase().includes(q)||matches(e))) continue; (aliasGroups[firstLetter(a)]??=[]).push([a,e]); } }
+    const letters=[...new Set([...Object.keys(groups),...Object.keys(aliasGroups)])].sort();
+    for(const L of letters){
+      const items=groups[L]||[]; const al=(aliasGroups[L]||[]).sort((x,y)=>x[0].localeCompare(y[0]));
+      h+=`<section class="grp" id="g-${L}"><div class="grp-head"><span class="letter">${L}</span><span class="n">${items.length} ${items.length===1?'entry':'entries'}</span></div>`;
+      if(items.length) h+=`<div class="grid">${items.map(cardHTML).join('')}</div>`;
+      if(al.length) h+=`<div class="also"><span class="lbl">Also find</span>${al.map(([a,e])=>`<button class="alias" style="--uc:${uc(e.unit)}" data-open="${e.id}">${esc(a)} <b>→ ${esc(e.short)}</b></button>`).join('')}</div>`;
+      h+=`</section>`;
+    }
+  }
+  el.innerHTML=h; renderJump(list);
+}
+
+function renderJump(list){
+  const j=$('#jump');
+  if(view!=='cards'){ j.hidden=true; return; } j.hidden=false;
+  if(sort==='unit'){
+    j.className='jump';
+    j.innerHTML=U.map(u=>{const has=list.some(e=>e.unit===u.n);return `<button style="--uc:${uc(u.n)}" data-jump="g-u${u.n}" ${has?'':'disabled'}><span class="dot"></span>${u.n}. ${esc(u.title)}</button>`}).join('');
+  } else {
+    j.className='jump letters';
+    const have=new Set([...document.querySelectorAll('#cards section.grp')].map(s=>s.id.slice(2)));
+    j.innerHTML='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(L=>`<button data-jump="g-${L}" ${have.has(L)?'':'disabled'} aria-label="Jump to ${L}">${L}</button>`).join('');
+  }
+}
+
+/* reader */
+let navList=[], cur=null, lastFocus=null;
+function openEntry(id,{push=true}={}){
+  const e=byId[id]; if(!e) return;
+  const vis=visible().map(x=>x.id);
+  navList=vis.includes(id)?vis:order().map(x=>x.id);
+  cur=id; const i=navList.indexOf(id);
+  if(!$('#reader').hidden===false) lastFocus=document.activeElement;
+  const r=$('#reader'); r.style.setProperty('--uc',uc(e.unit));
+  $('#r-tag').innerHTML=`<span class="dot"></span>Unit ${e.unit} · ${esc(unitName(e.unit))}`;
+  $('#r-pos').textContent=`${i+1} of ${navList.length} · ${sort==='unit'?'by unit':'A–Z'}`;
+  const sec=(cls,label,html)=>html?`<div class="sec ${cls}"><h4>${label}</h4><div class="prose">${html}</div></div>`:'';
+  const rel=e.related.map(r=>byId[r]).map(x=>`<button class="chip" style="--uc:${uc(x.unit)}" data-open="${x.id}"><span class="dot"></span>${esc(x.title)}</button>`).join('');
+  $('#r-body').innerHTML=`<h2 id="r-title">${esc(e.title)}</h2>${e.aliases.length?`<p class="akas">Also covers: ${e.aliases.map(esc).join(' · ')}</p>`:''}`+
+    sec('def','Definition',e.def)+sec('ex','Example or analogy',e.ex)+sec('rel','Relevance to strategy',e.rel)+sec('dis','Where people disagree',e.dis)+
+    (rel?`<div class="sec"><h4>Related terms</h4><div class="chips">${rel}</div></div>`:'')+sec('deep','Go deeper',e.deeper);
+  $('#r-body').scrollTop=0;
+  const p=navList[i-1], n=navList[i+1];
+  const pb=$('#r-prev'), nb=$('#r-next');
+  pb.disabled=!p; nb.disabled=!n;
+  pb.querySelector('span').textContent=p?byId[p].short:''; nb.querySelector('span').textContent=n?byId[n].short:'';
+  $('#r-copy').textContent='Copy link to this entry';
+  if(r.hidden){ lastFocus=document.activeElement; r.hidden=false; $('#scrim').hidden=false; document.body.classList.add('lock'); $('#r-close').focus(); }
+  if(push && location.hash!=='#'+id){ try{ history.pushState(null,'','#'+id); }catch(_){ location.hash=id; } }
+}
+function closeEntry({push=true}={}){
+  if($('#reader').hidden) return;
+  $('#reader').hidden=true; $('#scrim').hidden=true; document.body.classList.remove('lock'); cur=null;
+  if(push){ try{ history.pushState(null,'',location.pathname+location.search+(view==='cards'?'':'#'+view)); }catch(_){} }
+  if(lastFocus&&lastFocus.focus) lastFocus.focus();
+}
+function step(d){ if(!cur) return; const i=navList.indexOf(cur)+d; if(navList[i]) openEntry(navList[i]); }
+$('#r-prev').onclick=()=>step(-1); $('#r-next').onclick=()=>step(1);
+$('#r-close').onclick=()=>closeEntry(); $('#scrim').onclick=()=>closeEntry();
+$('#r-copy').onclick=async()=>{
+  const url=location.href.split('#')[0]+'#'+cur, b=$('#r-copy');
+  try{ await navigator.clipboard.writeText(url); b.textContent='Link copied'; }
+  catch(_){ b.textContent='#'+cur; const s=window.getSelection(),rg=document.createRange(); rg.selectNodeContents(b); s.removeAllRanges(); s.addRange(rg); }
+};
+
+/* clicks */
+document.addEventListener('click',ev=>{
+  const o=ev.target.closest('[data-open]'); if(o){ openEntry(o.dataset.open); return; }
+  const j=ev.target.closest('[data-jump]'); if(j){ const s=document.getElementById(j.dataset.jump); if(s) s.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}); }
+});
+
+/* sort + view */
+function setSort(s){ sort=s; store.set('gl-sort',s);
+  document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sort===s)));
+  renderCards(); if(view==='study') buildDeck(); }
+document.querySelectorAll('[data-sort]').forEach(b=>b.onclick=()=>setSort(b.dataset.sort));
+function setView(v,{push=true}={}){ view=v;
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===v)));
+  $('#cards').hidden=v!=='cards'; $('#study').hidden=v!=='study'; $('#map').hidden=v!=='map';
+  $('.search').style.display=v==='cards'?'':'none';
+  renderJump(visible());
+  if(v==='study') buildDeck(); if(v==='map') drawMap();
+  if(push){ try{ history.replaceState(null,'',v==='cards'?location.pathname+location.search:'#'+v); }catch(_){} }
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+let qt; $('#q').addEventListener('input',e=>{ clearTimeout(qt); qt=setTimeout(()=>{ q=e.target.value.trim().toLowerCase(); renderCards(); },80); });
+
+/* study */
+const sel=$('#study-unit');
+sel.innerHTML=`<option value="all">All units (${E.length} cards)</option>`+U.map(u=>`<option value="${u.n}">Unit ${u.n}: ${esc(u.title)} (${E.filter(e=>e.unit===u.n).length})</option>`).join('');
+let deck=[], di=0, shuffled=false;
+function buildDeck(){ const v=sel.value; deck=order().filter(e=>v==='all'||e.unit===+v).map(e=>e.id);
+  if(shuffled){ for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];} }
+  di=0; showCard(); }
+function showCard(){ const e=byId[deck[di]]; if(!e) return; $('#flip').classList.remove('on');
+  const f=$('#flip'); f.style.setProperty('--uc',uc(e.unit));
+  const top=`<div class="top"><span class="tag" style="--uc:${uc(e.unit)}"><span class="dot"></span>Unit ${e.unit}</span><span class="ct">${di+1} / ${deck.length}</span></div>`;
+  $('#front').innerHTML=top+`<h3>${esc(e.title)}</h3><span class="hint">Tap or press space to see the definition</span>`;
+  $('#back').innerHTML=top+`<h4 class="back-title">${esc(e.title)}</h4><div class="prose">${e.def}</div><a class="more" data-open="${e.id}">Open the full entry →</a>`;
+  $('#study-count').textContent=shuffled?'Shuffled':'In order';
+}
+const flip=()=>$('#flip').classList.toggle('on');
+$('#flip').addEventListener('click',ev=>{ if(ev.target.closest('[data-open]')) return; flip(); });
+$('#s-flip').onclick=flip;
+$('#s-prev').onclick=()=>{ if(di>0){di--;showCard();} };
+$('#s-next').onclick=()=>{ if(di<deck.length-1){di++;showCard();} };
+$('#shuffle').onclick=()=>{ shuffled=!shuffled; $('#shuffle').textContent=shuffled?'Unshuffle':'Shuffle'; buildDeck(); };
+sel.onchange=buildDeck;
+
+/* keyboard */
+document.addEventListener('keydown',ev=>{
+  const typing=/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName);
+  if(!$('#reader').hidden){
+    if(ev.key==='Escape'){ closeEntry(); ev.preventDefault(); }
+    else if(ev.key==='ArrowRight'){ step(1); } else if(ev.key==='ArrowLeft'){ step(-1); }
+    return;
+  }
+  if(ev.key==='/'&&!typing){ ev.preventDefault(); if(view!=='cards') setView('cards'); $('#q').focus(); return; }
+  if(view==='study'&&!typing){
+    if(ev.key===' '){ ev.preventDefault(); flip(); }
+    else if(ev.key==='ArrowRight') $('#s-next').click(); else if(ev.key==='ArrowLeft') $('#s-prev').click();
+  }
+});
+
+/* map */
+let mapDrawn=false;
+function drawMap(){
+  if(mapDrawn) return; mapDrawn=true;
+  $('#legend').innerHTML=U.map(u=>`<span><span class="dot" style="--uc:${uc(u.n)}"></span>Unit ${u.n}: ${esc(u.title)}</span>`).join('');
+  const W=1100,H=820; const centers={1:[200,150],2:[880,140],3:[190,600],4:[650,520],5:[1000,760]};
+  let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const N=E.map(e=>({id:e.id,u:e.unit,x:centers[e.unit][0]+(rnd()-.5)*120,y:centers[e.unit][1]+(rnd()-.5)*120,vx:0,vy:0}));
+  const idx=Object.fromEntries(N.map((n,i)=>[n.id,i]));
+  const L=[]; const seen=new Set();
+  for(const e of E) for(const r of e.related){ const k=[e.id,r].sort().join('|'); if(!seen.has(k)){seen.add(k); L.push([idx[e.id],idx[r]]);} }
+  for(let t=0;t<420;t++){
+    const a=1-t/420;
+    for(let i=0;i<N.length;i++) for(let j=i+1;j<N.length;j++){
+      const p=N[i],q2=N[j]; let dx=p.x-q2.x, dy=p.y-q2.y, d2=dx*dx+dy*dy+.01; if(d2>160000) continue;
+      const f=5200/d2*a; const d=Math.sqrt(d2); dx/=d; dy/=d; p.vx+=dx*f; p.vy+=dy*f; q2.vx-=dx*f; q2.vy-=dy*f; }
+    for(const [i,j] of L){ const p=N[i],q2=N[j]; const dx=q2.x-p.x, dy=q2.y-p.y, d=Math.sqrt(dx*dx+dy*dy)||1; const f=(d-120)*0.010*a; p.vx+=dx/d*f; p.vy+=dy/d*f; q2.vx-=dx/d*f; q2.vy-=dy/d*f; }
+    for(const n of N){ const c=centers[n.u]; n.vx+=(c[0]-n.x)*0.02*a; n.vy+=(c[1]-n.y)*0.02*a; n.x+=n.vx; n.y+=n.vy; n.vx*=.55; n.vy*=.55;
+      n.x=Math.max(60,Math.min(W-60,n.x)); n.y=Math.max(30,Math.min(H-30,n.y)); }
+  }
+  const svg=$('#svg'); const NS='http://www.w3.org/2000/svg';
+  let h=L.map(([i,j],k)=>`<line class="edge" data-a="${N[i].id}" data-b="${N[j].id}" x1="${N[i].x.toFixed(1)}" y1="${N[i].y.toFixed(1)}" x2="${N[j].x.toFixed(1)}" y2="${N[j].y.toFixed(1)}"/>`).join('');
+  h+=N.map(n=>{const e=byId[n.id]; const deg=e.related.length; const r=5+Math.min(deg,8)*.6; const right=n.x<W-150;
+    return `<g class="node" data-id="${n.id}" data-open="${n.id}" tabindex="0" role="button" aria-label="${esc(e.title)}"><circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${r.toFixed(1)}" fill="${uc(n.u)}"/><text x="${(n.x+(right?r+5:-r-5)).toFixed(1)}" y="${(n.y+4).toFixed(1)}" text-anchor="${right?'start':'end'}">${esc(e.short)}</text></g>`}).join('');
+  svg.innerHTML=h;
+  const nb={}; for(const [i,j] of L){ (nb[N[i].id]??=new Set()).add(N[j].id); (nb[N[j].id]??=new Set()).add(N[i].id); }
+  const hi=id=>{ svg.classList.toggle('dim',!!id);
+    svg.querySelectorAll('.node').forEach(g=>g.classList.toggle('hi',!!id&&(g.dataset.id===id||(nb[id]&&nb[id].has(g.dataset.id)))));
+    svg.querySelectorAll('.edge').forEach(l=>l.classList.toggle('hi',!!id&&(l.dataset.a===id||l.dataset.b===id))); };
+  svg.addEventListener('mouseover',ev=>{const g=ev.target.closest('.node'); hi(g?g.dataset.id:null);});
+  svg.addEventListener('mouseleave',()=>hi(null));
+  svg.addEventListener('focusin',ev=>{const g=ev.target.closest('.node'); if(g) hi(g.dataset.id);});
+  svg.addEventListener('keydown',ev=>{const g=ev.target.closest('.node'); if(g&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault(); openEntry(g.dataset.id);} });
+}
+
+/* routing */
+function route(){ const h=decodeURIComponent(location.hash.slice(1));
+  if(byId[h]){ openEntry(h,{push:false}); return; }
+  closeEntry({push:false});
+  if(h==='study'||h==='map') setView(h,{push:false}); }
+window.addEventListener('popstate',route); window.addEventListener('hashchange',route);
+
+setSort(sort); route();
+})();
+</script>
