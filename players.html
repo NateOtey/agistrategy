@@ -1,0 +1,442 @@
+<title>Players and Incentives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a field guide in six views (deck, fights, money, supply chain, pressure, timeline) sharing one reader; same identity as the AGI Strategy Glossary. */
+:root{
+  --bg:#F2F5FA; --surface:#FFFFFF; --ink:#141B2B; --muted:#5A6478; --line:#D9E0EC; --soft:#E8EDF6;
+  --accent:#2B59C3; --accent-ink:#FFFFFF;
+  --invest:#2B59C3; --commit:#C27A0E; --funds:#0B7F73; --supplies:#6A4CB8; --governs:#3D4A63; --contests:#B8423A; --backs:#2E8540; --leads:#8A93A6;
+  --industry:#2B59C3; --safety:#0B7F73; --politics:#B8423A;
+  --g1:#2B59C3; --g2:#B8423A; --g3:#6A4CB8; --g4:#B07A0C; --g5:#1F3A73; --g6:#7A3E9D; --g7:#0B7F73; --g8:#8C2F39; --g9:#2E8540; --g10:#A65E2E; --g11:#C2447E; --g12:#56657F;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1420; --surface:#171E2D; --ink:#E8ECF5; --muted:#9AA4B8; --line:#2A3446; --soft:#1F2839;
+  --accent:#7FA2F0; --accent-ink:#0F1420;
+  --invest:#7FA2F0; --commit:#E5A33B; --funds:#3CC2B0; --supplies:#A98DF0; --governs:#AEB8CC; --contests:#F08070; --backs:#6CC47C; --leads:#6F7890;
+  --industry:#7FA2F0; --safety:#3CC2B0; --politics:#F08070;
+  --g1:#7FA2F0; --g2:#F08070; --g3:#A98DF0; --g4:#E5B04A; --g5:#8FB0F5; --g6:#C38BE6; --g7:#3CC2B0; --g8:#F0899A; --g9:#6CC47C; --g10:#E59A62; --g11:#F07FB4; --g12:#9AA8C0;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1420; --surface:#171E2D; --ink:#E8ECF5; --muted:#9AA4B8; --line:#2A3446; --soft:#1F2839;
+  --accent:#7FA2F0; --accent-ink:#0F1420;
+  --invest:#7FA2F0; --commit:#E5A33B; --funds:#3CC2B0; --supplies:#A98DF0; --governs:#AEB8CC; --contests:#F08070; --backs:#6CC47C; --leads:#6F7890;
+  --industry:#7FA2F0; --safety:#3CC2B0; --politics:#F08070;
+  --g1:#7FA2F0; --g2:#F08070; --g3:#A98DF0; --g4:#E5B04A; --g5:#8FB0F5; --g6:#C38BE6; --g7:#3CC2B0; --g8:#F0899A; --g9:#6CC47C; --g10:#E59A62; --g11:#F07FB4; --g12:#9AA8C0;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--read);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:18px}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font:750 clamp(32px,5vw,48px)/1.02 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+.lede{max-width:62ch;color:var(--muted);margin:10px 0 0;font-size:17px}
+nav.views{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);margin:18px 0 22px;padding-bottom:10px}
+nav.views button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font:500 13px/1 var(--mono);cursor:pointer}
+nav.views button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.intro{max-width:70ch;margin:0 0 18px;font-size:16.5px}
+.intro b{font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 10px 4px 8px;font:500 13px/1.2 var(--display);cursor:pointer;color:var(--ink);text-align:left}
+.chip:hover{border-color:var(--accent)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--c,var(--muted))}
+.mono{font-family:var(--mono)}
+.small{font-size:13px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font:13px/1.3 var(--mono);color:var(--muted);margin:6px 0 14px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.swatch{width:18px;height:4px;border-radius:2px;background:var(--c)}
+/* Cards */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.search{flex:1 1 260px;min-width:0}
+.search input{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 16px;font:15px var(--display);color:var(--ink)}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.toggle button{border:0;background:none;padding:9px 14px;font:500 13px/1 var(--mono);cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.group{margin:22px 0 8px}
+.group h2{font:650 20px/1.2 var(--display);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.group h2 .count{font:400 12px var(--mono);color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card:hover{border-color:var(--c)}
+.cat .card .gl{display:none}
+.card .gl{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--c);display:flex;align-items:center;gap:6px}
+.card h3{font:650 17px/1.2 var(--display);margin:0}
+.card p{margin:0;font-size:14.5px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.empty{color:var(--muted);font-style:italic}
+/* Reader */
+.reader{position:fixed;inset:0;background:color-mix(in srgb,var(--ink) 40%,transparent);display:flex;justify-content:flex-end;z-index:20}
+.sheet{background:var(--bg);width:min(720px,100%);height:100%;overflow:auto;padding:max(22px,env(safe-area-inset-top,0px)) 24px 40px;border-left:1px solid var(--line)}
+.sheet .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
+.sheet .bar button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font:500 12px var(--mono);cursor:pointer}
+.sheet h2{font:750 30px/1.08 var(--display);margin:4px 0 14px;text-wrap:balance}
+.sheet .field{margin:0 0 14px}
+.sheet .field b{font:600 15px var(--display);display:block;margin-bottom:2px}
+.sheet .field p{margin:0;max-width:65ch}
+.sheet h4{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.conn{display:flex;flex-wrap:wrap;gap:6px}
+.sheet .also{display:flex;flex-direction:column;gap:6px}
+.sheet .also button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;text-align:left;cursor:pointer;font:14px var(--read)}
+.updated{font:12px var(--mono);color:var(--muted)}
+/* Fights */
+.fightpick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.fightpick button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 12px;font:500 14px var(--display);cursor:pointer}
+.fightpick button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.fight{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.fight h2{font:750 26px/1.15 var(--display);margin:0 0 6px;text-wrap:balance}
+.fight .stakes{margin:0 0 14px;max-width:72ch;color:var(--muted)}
+.arena{display:grid;grid-template-columns:1fr minmax(180px,.7fr) 1fr;gap:14px;align-items:start}
+.side h3{font:650 15px var(--display);margin:0 0 8px;padding-bottom:6px;border-bottom:3px solid var(--sc)}
+.side ul,.swing ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.side li,.swing li{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.side li span,.swing li span{font-size:14px;line-height:1.4;color:var(--muted)}
+.swing{border:1px dashed var(--line);border-radius:12px;padding:12px;background:var(--bg)}
+.swing h3{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px;color:var(--muted)}
+.rope{height:6px;border-radius:3px;margin:16px 0 4px;background:linear-gradient(90deg,var(--sa) 0 var(--p),var(--sb) var(--p) 100%)}
+.ropelabel{display:flex;justify-content:space-between;font:12px var(--mono);color:var(--muted)}
+.status{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-size:14.5px}
+/* Money */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:18px}
+.panel h2{font:650 20px var(--display);margin:0 0 4px}
+.scroll{overflow-x:auto}
+svg text{font-family:var(--mono)}
+.flowinfo{min-height:48px;font-size:14.5px;margin-top:8px}
+.flow{cursor:pointer;transition:opacity .15s}
+.dimmed .flow{opacity:.18}
+.dimmed .flow.on{opacity:1}
+.bars{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.barrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:10px;align-items:center}
+.barrow .lab{font-size:14px;line-height:1.3}
+.barrow .track{position:relative;height:22px;background:var(--soft);border-radius:4px}
+.barrow .fill{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--c)}
+.barrow .val{position:absolute;right:4px;top:50%;transform:translateY(-50%);font:500 12px var(--mono);color:var(--ink);background:var(--surface);border-radius:3px;padding:1px 5px}
+.axis{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:10px}
+.axis div:last-child{display:flex;justify-content:space-between;font:11px var(--mono);color:var(--muted)}
+/* Stack */
+.stack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr) minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.stack .hd{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 12px;background:var(--soft);border-bottom:1px solid var(--line)}
+.stack .cell{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.stack .mid{background:var(--bg);border-inline:1px solid var(--line)}
+.stack .layer{font:650 14px var(--display)}
+.stack .note{font-size:13px;color:var(--muted)}
+.stack .chips{display:flex;flex-wrap:wrap;gap:5px}
+.choke{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--contests);border:1px solid currentColor;border-radius:4px;padding:1px 5px}
+.gap{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px dashed currentColor;border-radius:4px;padding:1px 5px;align-self:flex-start}
+.lever{display:flex;flex-direction:column;gap:2px;font-size:13px}
+.lever span{color:var(--muted)}
+/* Pressure */
+.pick{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.pick select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;font:15px var(--display);color:var(--ink);max-width:100%}
+.ego{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(160px,.6fr) minmax(0,1fr);gap:28px;align-items:start}
+.ego svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.col h3{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.col li{display:block;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;padding:5px 9px;cursor:pointer;line-height:1.35}
+.col li b{font:600 14px var(--display);margin-right:6px}
+.col li span{font-size:13px;color:var(--muted)}
+.col li:hover{border-color:var(--c)}
+.col li em{font:500 10.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;font-style:normal;color:var(--c);margin-right:6px}
+.center{position:sticky;top:calc(env(safe-area-inset-top,0px) + 30vh);text-align:center;background:var(--ink);color:var(--bg);border-radius:14px;padding:18px 14px;position:relative;z-index:1}
+.center b{font:750 22px/1.1 var(--display);display:block}
+.center span{font:12px var(--mono);opacity:.8}
+.center button{margin-top:10px;border:1px solid currentColor;background:none;color:inherit;border-radius:999px;padding:5px 12px;font:500 12px var(--mono);cursor:pointer}
+/* Timeline */
+.tl{position:relative;margin-left:8px;padding-left:22px;border-left:2px solid var(--line)}
+.ev{position:relative;margin:0 0 16px}
+.ev::before{content:"";position:absolute;left:-29px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.ev.faded{opacity:.28}
+.ev .when{font:500 12px var(--mono);color:var(--muted)}
+.ev h3{font:650 17px/1.25 var(--display);margin:2px 0 3px}
+.ev p{margin:0 0 6px;max-width:68ch;font-size:15px}
+.ev .who{display:flex;flex-wrap:wrap;gap:5px}
+.yr{font:750 22px var(--display);margin:8px 0 10px -22px;background:var(--bg);padding:2px 0}
+@media (max-width:760px){
+  .arena{grid-template-columns:1fr}
+  .stack{grid-template-columns:1fr}
+  .stack .hd.mid,.stack .hd.cn{display:none}
+  .stack .mid{border-inline:0}
+  .ego{grid-template-columns:1fr}
+  .center{order:-1;position:static}
+  .ego svg.links{display:none}
+  .barrow,.axis{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <p class="kicker"><a href="/glossary/" style="color:inherit">AGI Strategy Glossary</a> · Field guide</p>
+      <h1>Players and Incentives</h1>
+      <p class="lede">Who is shaping the transition to advanced AI, what each one wants, what it can do about it, and who stands in its way. Facts as of October 2026.</p>
+    </div>
+  </header>
+  <nav class="views" role="tablist" aria-label="Views">
+    <button role="tab" data-view="cards" aria-selected="true">Cards</button>
+    <button role="tab" data-view="fights" aria-selected="false">The fights</button>
+    <button role="tab" data-view="money" aria-selected="false">Follow the money</button>
+    <button role="tab" data-view="stack" aria-selected="false">Supply chain</button>
+    <button role="tab" data-view="pressure" aria-selected="false">Who can pressure whom</button>
+    <button role="tab" data-view="timeline" aria-selected="false">Timeline</button>
+  </nav>
+
+  <section id="v-cards">
+    <div class="controls">
+      <div class="search"><input id="q" type="search" placeholder="Search..." aria-label="Search players" autocomplete="off"></div>
+      <div class="toggle" role="group" aria-label="Order"><button id="by-cat" aria-pressed="true">By category</button><button id="by-az" aria-pressed="false">A–Z</button></div>
+    </div>
+    <div id="deck"></div>
+  </section>
+
+  <section id="v-fights" hidden>
+    <p class="intro">Incentives are easiest to see in a live dispute. Pick a fight to see who lines up on each side, why, and who could tip it.</p>
+    <div class="fightpick" id="fightpick"></div>
+    <div id="fight"></div>
+  </section>
+
+  <section id="v-money" hidden>
+    <p class="intro">Money flows both ways between the labs and the companies that back them. Investors put cash <b>in</b>; the labs promise much larger sums <b>back</b> for chips and cloud capacity. Tap a line for the figure and its source.</p>
+    <div class="panel">
+      <h2>The circular economy of frontier AI</h2>
+      <div class="legend"><span><i class="swatch" style="--c:var(--invest)"></i>Invests in the lab</span><span><i class="swatch" style="--c:var(--commit)"></i>Lab commits to buy compute</span><span><i class="swatch" style="--c:var(--muted)"></i>Buys Nvidia chips</span><span>Line width ∝ dollars · dashed = figure not disclosed</span></div>
+      <div class="scroll"><svg id="moneysvg" role="img" aria-label="Money flows between investors, cloud providers, chipmakers and the two leading independent labs"></svg></div>
+      <div class="flowinfo" id="flowinfo"><span class="small">Tap or hover a line.</span></div>
+    </div>
+    <div class="panel">
+      <h2>Dollars on the table</h2>
+      <p class="small" style="margin:0">Log scale: each gridline is ten times the last. Safety philanthropy and political money are a rounding error next to the industry's spending.</p>
+      <div class="legend"><span><i class="swatch" style="--c:var(--industry)"></i>Industry</span><span><i class="swatch" style="--c:var(--safety)"></i>Safety philanthropy</span><span><i class="swatch" style="--c:var(--politics)"></i>Political spending</span></div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </section>
+
+  <section id="v-stack" hidden>
+    <p class="intro">Frontier AI depends on a chain of inputs, and a few links in it are controlled by one or two companies. Those <b>chokepoints</b> are why chips sit at the center of US–China strategy. The middle column shows who pulls which lever.</p>
+    <div class="stack" id="stack"></div>
+  </section>
+
+  <section id="v-pressure" hidden>
+    <p class="intro">Pick any player. On the left are those who can move it (funders, suppliers, regulators, opponents); on the right, those it can move. Tap a name to make it the center.</p>
+    <div class="pick"><label for="egopick" class="small mono">Center on</label><select id="egopick"></select></div>
+    <div class="legend" id="egolegend"></div>
+    <div class="ego" id="ego"></div>
+  </section>
+
+  <section id="v-timeline" hidden>
+    <p class="intro">The events of 2025 and 2026 that tie the players together. Filter to one player to follow its story.</p>
+    <div class="pick"><label for="tlpick" class="small mono">Show</label><select id="tlpick"><option value="">Everyone</option></select></div>
+    <div class="tl" id="tl"></div>
+  </section>
+
+  <p class="small" style="margin-top:40px">An unofficial companion to BlueDot Impact's AGI Strategy course, compiled by Nate Otey. Not affiliated with or endorsed by BlueDot Impact. Every relationship shown rests on a fact on a card or a linked source; tell us if one is wrong.</p>
+</div>
+
+<div class="reader" id="reader" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="r-title">
+    <div class="bar"><span class="updated" id="r-meta"></span><button id="r-close">Close ✕</button></div>
+    <div id="r-body"></div>
+  </div>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('data').textContent);
+const P={}; D.cards.forEach(c=>P[c.id]=c);
+const G={}; D.groups.forEach(g=>G[g.n]=g.title);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const gc=id=>P[id]?`var(--g${P[id].group})`:'var(--muted)';
+const name=id=>P[id]?P[id].title:id;
+const chip=id=>P[id]?`<button class="chip" data-open="${id}" style="--c:${gc(id)}"><i class="dot"></i>${esc(P[id].title)}</button>`:`<span class="chip" style="cursor:default"><i class="dot"></i>${esc(id)}</span>`;
+const TYPES={invests:{c:'var(--invest)',out:'invests in',in:'investor'},funds:{c:'var(--funds)',out:'funds',in:'funder'},supplies:{c:'var(--supplies)',out:'supplies',in:'supplier'},governs:{c:'var(--governs)',out:'governs or oversees',in:'regulator or overseer'},contests:{c:'var(--contests)',out:'contests',in:'opponent'},backs:{c:'var(--backs)',out:'backs',in:'ally'},leads:{c:'var(--leads)',out:'leads or advises',in:'leader'}};
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ---------- views ---------- */
+const views=['cards','fights','money','stack','pressure','timeline'];
+function show(v){views.forEach(x=>{$('#v-'+x).hidden=x!==v;document.querySelector(`nav.views [data-view="${x}"]`).setAttribute('aria-selected',x===v)});
+  if(v==='money')drawMoney(); if(v==='pressure')drawEgo(); try{localStorage.setItem('pi-view',v)}catch(e){} }
+document.querySelectorAll('nav.views button').forEach(b=>b.onclick=()=>{show(b.dataset.view);history.replaceState(null,'','#'+b.dataset.view)});
+
+/* ---------- cards ---------- */
+let order='cat'; try{order=localStorage.getItem('pi-order')||'cat'}catch(e){}
+function renderDeck(){
+  const q=$('#q').value.trim().toLowerCase();
+  const hit=c=>!q||c.text.includes(q);
+  const tile=c=>`<button class="card" data-open="${c.id}" style="--c:${gc(c.id)}"><span class="gl"><i class="dot"></i>${esc(G[c.group])}</span><h3>${esc(c.title)}</h3><p>${esc(c.lede)}</p></button>`;
+  let h='';
+  if(order==='cat'){
+    D.groups.forEach(g=>{const cs=D.cards.filter(c=>c.group===g.n&&hit(c)); if(!cs.length)return;
+      h+=`<div class="group"><h2 style="--c:var(--g${g.n})"><i class="dot" style="width:10px;height:10px"></i>${esc(g.title)} <span class="count">${cs.length}</span></h2><div class="grid">${cs.map(tile).join('')}</div></div>`});
+  }else{
+    const cs=D.cards.filter(hit).slice().sort((a,b)=>a.sort.localeCompare(b.sort));
+    let cur='';let buf=[];const flush=()=>{if(buf.length)h+=`<div class="group"><h2>${cur}</h2><div class="grid">${buf.join('')}</div></div>`;buf=[]};
+    cs.forEach(c=>{const L=/[a-z]/i.test(c.sort[0])?c.sort[0].toUpperCase():'#';if(L!==cur){flush();cur=L}buf.push(tile(c))});flush();
+  }
+  $('#deck').className=order==='cat'?'cat':'az';
+  $('#deck').innerHTML=h||'<p class="empty">No players match that search.</p>';
+  $('#by-cat').setAttribute('aria-pressed',order==='cat');$('#by-az').setAttribute('aria-pressed',order==='az');
+}
+$('#q').addEventListener('input',renderDeck);
+$('#by-cat').onclick=()=>{order='cat';try{localStorage.setItem('pi-order',order)}catch(e){}renderDeck()};
+$('#by-az').onclick=()=>{order='az';try{localStorage.setItem('pi-order',order)}catch(e){}renderDeck()};
+
+/* ---------- reader ---------- */
+function openCard(id){
+  const c=P[id]; if(!c)return;
+  const out=D.edges.filter(e=>e[0]===id), inn=D.edges.filter(e=>e[1]===id);
+  const fights=D.fights.filter(f=>[...f.sides.flatMap(s=>s.players),...f.swing].some(p=>p[0]===id));
+  const evs=D.timeline.filter(e=>e[3].includes(id));
+  let h=`<p class="kicker" style="color:${gc(id)}">${esc(G[c.group])}</p><h2 id="r-title">${esc(c.title)}</h2>`;
+  c.fields.forEach(f=>h+=`<div class="field"><b>${esc(f[0])}</b><p>${f[1]}</p></div>`);
+  if(out.length||inn.length){h+=`<h4>Connections</h4><div class="conn">${[...new Set([...out.map(e=>e[1]),...inn.map(e=>e[0])])].map(chip).join('')}</div>
+    <p class="small" style="margin-top:8px"><a href="#pressure" data-ego="${id}">See who can pressure ${esc(c.title)} →</a></p>`}
+  if(fights.length)h+=`<h4>In the fights</h4><div class="also">${fights.map(f=>`<button data-fight="${f.id}">${esc(f.name)}</button>`).join('')}</div>`;
+  if(evs.length)h+=`<h4>On the timeline</h4><div class="also">${evs.map(e=>`<button data-tl="${id}"><span class="mono small">${fmt(e[0])}</span> · ${esc(e[1])}</button>`).join('')}</div>`;
+  $('#r-body').innerHTML=h; $('#r-meta').textContent='Updated '+c.updated;
+  $('#reader').hidden=false; $('#r-close').focus();
+  history.replaceState(null,'','#'+id);
+}
+function closeCard(){$('#reader').hidden=true}
+$('#r-close').onclick=closeCard;
+$('#reader').addEventListener('click',e=>{if(e.target.id==='reader')closeCard()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard()});
+document.addEventListener('click',e=>{
+  const o=e.target.closest('[data-open]'); if(o){e.preventDefault();openCard(o.dataset.open);return}
+  const f=e.target.closest('[data-fight]'); if(f){closeCard();fight=f.dataset.fight;renderFight();show('fights');return}
+  const g=e.target.closest('[data-ego]'); if(g){e.preventDefault();closeCard();ego=g.dataset.ego;show('pressure');return}
+  const t=e.target.closest('[data-tl]'); if(t){closeCard();$('#tlpick').value=t.dataset.tl;renderTL();show('timeline');return}
+});
+
+/* ---------- fights ---------- */
+let fight=D.fights[0].id;
+function renderFight(){
+  $('#fightpick').innerHTML=D.fights.map(f=>`<button data-pickfight="${f.id}" aria-pressed="${f.id===fight}">${esc(f.name)}</button>`).join('');
+  const f=D.fights.find(x=>x.id===fight);
+  const [a,b]=f.sides; const na=a.players.length, nb=b.players.length;
+  const side=(s,c)=>`<div class="side" style="--sc:${c}"><h3>${esc(s.label)}</h3><ul>${s.players.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>`;
+  $('#fight').innerHTML=`<div class="fight"><p class="kicker">The question</p><h2>${esc(f.question)}</h2><p class="stakes">${esc(f.stakes)}</p>
+  <div class="arena">${side(a,'var(--g1)')}<div class="swing"><h3>Could tip it</h3><ul>${f.swing.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>${side(b,'var(--g2)')}</div>
+  <div class="rope" style="--sa:var(--g1);--sb:var(--g2);--p:${Math.round(100*na/(na+nb))}%"></div><div class="ropelabel"><span>${na} players</span><span>headcount, not strength</span><span>${nb} players</span></div>
+  <p class="status"><b>Where it stands:</b> ${esc(f.status)} <a href="${f.link}" target="_blank" rel="noopener">Source</a></p></div>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pickfight]');if(b){fight=b.dataset.pickfight;renderFight()}});
+
+/* ---------- money ---------- */
+const fmtB=v=>v>=1e12?`$${(v/1e12).toFixed(1)}T`:v>=1e9?`$${Math.round(v/1e9)}B`:`$${Math.round(v/1e6)}M`;
+let moneyDrawn=false;
+function drawMoney(){
+  if(moneyDrawn)return; moneyDrawn=true;
+  const W=1060,H=520,topY=70,botY=440, svg=$('#moneysvg');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.style.minWidth='760px'; svg.style.width='100%';
+  const tops=D.money.top, bots=D.money.bottom, X={}, Y={};
+  tops.forEach((n,i)=>{X[n[0]]=70+i*(W-140)/(tops.length-1);Y[n[0]]=topY});
+  bots.forEach((n,i)=>{X[n[0]]=W*(i?0.7:0.3);Y[n[0]]=botY});
+  const label={};tops.concat(bots).forEach(n=>label[n[0]]=n[1]);
+  const maxv=300, wid=v=>v==null?3:Math.max(2,v/maxv*46);
+  let g='';
+  // grouped offsets so parallel lines fan out
+  const flows=D.money.flows.map((f,i)=>({f,i}));
+  flows.forEach(({f,i})=>{
+    const [a,b,kind,val]=f;
+    const ax=X[a],ay=Y[a],bx=X[b],by=Y[b];
+    let d,col,dash='';
+    if(kind==='buys'){ // arc above top row
+      const mx=(ax+bx)/2, lift=40+Math.abs(ax-bx)*0.12;
+      d=`M${ax},${ay-16} Q${mx},${ay-16-lift} ${bx},${by-16}`; col='var(--muted)'; dash='4 5';
+    }else{
+      const off=kind==='invest'?-14:14;
+      const sx=ax+off, ex=bx+off;
+      const y1=ay+(ay<by?18:-18), y2=by+(ay<by?-18:18);
+      d=`M${sx},${y1} C${sx},${(y1+y2)/2} ${ex},${(y1+y2)/2} ${ex},${y2}`;
+      col=kind==='invest'?'var(--invest)':'var(--commit)'; if(val==null)dash='6 6';
+    }
+    g+=`<path class="flow" data-i="${i}" d="${d}" fill="none" stroke="${col}" stroke-width="${kind==='buys'?2:wid(val)}" stroke-linecap="round" ${dash?`stroke-dasharray="${dash}"`:''} opacity=".78"><title>${esc(label[a])} → ${esc(label[b])}</title></path>`;
+    // arrowhead marker at end
+  });
+  let nodes='';
+  tops.concat(bots).forEach(n=>{const x=X[n[0]],y=Y[n[0]],w=Math.max(84,n[1].length*8.6+20);
+    nodes+=`<g class="mnode" data-open="${P[n[0]]?n[0]:''}" style="cursor:${P[n[0]]?'pointer':'default'}"><rect x="${x-w/2}" y="${y-16}" width="${w}" height="32" rx="16" fill="var(--surface)" stroke="${P[n[0]]?gc(n[0]):'var(--line)'}" stroke-width="2"/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="13" fill="var(--ink)">${esc(n[1])}</text></g>`});
+  const totals=id=>{let inn=0,out=0;D.money.flows.forEach(f=>{if(f[1]===id&&f[2]==='invest')inn+=f[3]||0;if(f[0]===id&&f[2]==='commit')out+=f[3]||0});return[inn,out]};
+  let ann='';bots.forEach(n=>{const[i,o]=totals(n[0]);ann+=`<text x="${X[n[0]]}" y="${botY+42}" text-anchor="middle" font-size="12" fill="var(--muted)">in: $${i}B · committed back: $${o}B+</text>`});
+  ann+=`<text x="16" y="${H-8}" font-size="11" fill="var(--muted)" letter-spacing=".06em">TOP ROW: INVESTORS, CLOUDS AND CHIPMAKERS · BOTTOM ROW: INDEPENDENT FRONTIER LABS</text>`;
+  svg.innerHTML=g+nodes+ann;
+  const info=$('#flowinfo');
+  svg.querySelectorAll('.flow').forEach(p=>{
+    const f=D.money.flows[+p.dataset.i];
+    const showInfo=()=>{svg.classList.add('dimmed');svg.querySelectorAll('.flow').forEach(q=>q.classList.toggle('on',q===p));
+      info.innerHTML=`<b>${esc(label[f[0]])} → ${esc(label[f[1]])}</b> · ${f[3]!=null?`<span class="mono">$${f[3]}B</span> · `:''}${esc(f[4])}. <a href="${f[5]}" target="_blank" rel="noopener">Source</a>`};
+    p.addEventListener('mouseenter',showInfo);p.addEventListener('click',showInfo);p.addEventListener('focus',showInfo);
+  });
+  svg.addEventListener('mouseleave',()=>svg.classList.remove('dimmed'));
+  // scale bars
+  const lo=Math.log10(1e7),hi=Math.log10(1e12),pct=v=>(Math.log10(v)-lo)/(hi-lo)*100;
+  $('#bars').innerHTML=`<div class="axis"><div></div><div><span>$10M</span><span>$100M</span><span>$1B</span><span>$10B</span><span>$100B</span><span>$1T</span></div></div>`+
+    D.scale.map(s=>`<div class="barrow"><div class="lab">${esc(s[0])} <a href="${s[3]}" target="_blank" rel="noopener" class="small">source</a></div><div class="track"><div class="fill" style="width:${pct(s[1]).toFixed(1)}%;--c:var(--${s[2]})"></div><span class="val">${fmtB(s[1])}</span></div></div>`).join('');
+}
+
+/* ---------- supply chain ---------- */
+function renderStack(){
+  let h=`<div class="hd">US and allies</div><div class="hd mid">Who pulls the levers</div><div class="hd cn">China</div>`;
+  D.stack.slice().reverse().forEach(r=>{
+    const cell=(arr,note)=>`<div class="chips">${arr.map(p=>chip(p[0])+(p[1]?' <span class="choke">Chokepoint</span>':'')).join('')}</div>${note?`<span class="note">${esc(note)}</span>`:''}`;
+    h+=`<div class="cell"><span class="layer">${esc(r.layer)}</span>${cell(r.us,r.us_note)}</div>`;
+    h+=`<div class="cell mid">${r.levers.map(l=>`<div class="lever">${chip(l[0])}<span>${esc(l[1])}</span></div>`).join('')}</div>`;
+    h+=`<div class="cell"><span class="layer" style="visibility:hidden">${esc(r.layer)}</span>${r.cn.length?cell(r.cn,r.cn_note):`<span class="gap">Gap</span><span class="note">${esc(r.cn_note)}</span>`}</div>`;
+  });
+  $('#stack').innerHTML=h;
+}
+
+/* ---------- pressure ---------- */
+let ego='openai';
+function drawEgo(){
+  const sel=$('#egopick');
+  if(!sel.options.length){D.cards.slice().sort((a,b)=>a.sort.localeCompare(b.sort)).forEach(c=>sel.add(new Option(c.title,c.id)));sel.onchange=()=>{ego=sel.value;drawEgo()}}
+  sel.value=ego;
+  $('#egolegend').innerHTML=Object.entries(TYPES).map(([k,t])=>`<span><i class="swatch" style="--c:${t.c}"></i>${t.out}</span>`).join('');
+  const inn=D.edges.filter(e=>e[1]===ego), out=D.edges.filter(e=>e[0]===ego);
+  const li=(e,other,dir)=>{const t=TYPES[e[2]];return `<li data-center="${other}" style="--c:${t.c}" data-k="${dir}-${other}"><em>${dir==='in'?t.in:t.out}</em><b>${esc(name(other))}</b><span>${esc(e[3])}</span></li>`};
+  const sortT=(a,b)=>Object.keys(TYPES).indexOf(a[2])-Object.keys(TYPES).indexOf(b[2]);
+  $('#ego').innerHTML=`<svg class="links" aria-hidden="true"></svg>
+   <div class="col"><h3>Who can move ${esc(name(ego))} (${inn.length})</h3><ul>${inn.slice().sort(sortT).map(e=>li(e,e[0],'in')).join('')||'<li style="--c:var(--line)"><span>No mapped links yet</span></li>'}</ul></div>
+   <div class="center" id="egocenter" style="background:${gc(ego)}"><span>${esc(G[P[ego].group])}</span><b>${esc(name(ego))}</b><button data-open="${ego}">Read the card</button></div>
+   <div class="col"><h3>Who ${esc(name(ego))} can move (${out.length})</h3><ul>${out.slice().sort(sortT).map(e=>li(e,e[1],'out')).join('')||'<li style="--c:var(--line)"><span>No mapped links yet</span></li>'}</ul></div>`;
+  requestAnimationFrame(links);
+}
+function links(){
+  const box=$('#ego'), svg=box.querySelector('svg.links'), c=$('#egocenter'); if(!svg||!c)return;
+  const B=box.getBoundingClientRect(), C=c.getBoundingClientRect(); let h='';
+  box.querySelectorAll('li[data-center]').forEach(li=>{const r=li.getBoundingClientRect(), left=li.dataset.k.startsWith('in');
+    const x1=left?r.right-B.left:r.left-B.left, y1=r.top+r.height/2-B.top, x2=left?C.left-B.left:C.right-B.left, y2=C.top+C.height/2-B.top, mx=(x1+x2)/2;
+    h+=`<path d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}" fill="none" stroke="${getComputedStyle(li).getPropertyValue('--c')}" stroke-width="1.6" opacity=".55"/>`});
+  svg.innerHTML=h;
+}
+window.addEventListener('resize',()=>{if(!$('#v-pressure').hidden)links()});
+document.addEventListener('click',e=>{const l=e.target.closest('li[data-center]');if(l){ego=l.dataset.center;drawEgo();$('#ego').scrollIntoView({block:'nearest'})}});
+
+/* ---------- timeline ---------- */
+function fmt(d){const[y,m]=d.split('-');return MON[+m-1]+' '+y}
+function renderTL(){
+  const sel=$('#tlpick');
+  if(sel.options.length<2){const ids=[...new Set(D.timeline.flatMap(e=>e[3]))].sort((a,b)=>name(a).localeCompare(name(b)));ids.forEach(id=>sel.add(new Option(name(id),id)));sel.onchange=renderTL}
+  const who=sel.value; let h='',yr='';
+  D.timeline.forEach(e=>{const y=e[0].slice(0,4);if(y!==yr){yr=y;h+=`<div class="yr">${y}</div>`}
+    h+=`<div class="ev ${who&&!e[3].includes(who)?'faded':''}"><span class="when">${fmt(e[0])}</span><h3>${esc(e[1])}</h3><p>${esc(e[2])} <a href="${e[4]}" target="_blank" rel="noopener" class="small">Source</a></p><div class="who">${e[3].map(chip).join('')}</div></div>`});
+  $('#tl').innerHTML=h;
+}
+
+/* ---------- boot ---------- */
+renderDeck(); renderFight(); renderStack(); renderTL();
+const h=location.hash.slice(1);
+let start='cards'; try{start=localStorage.getItem('pi-view')||'cards'}catch(e){}
+if(views.includes(h))start=h;
+show(start);
+if(P[h]){openCard(h)}
+})();
+</script>

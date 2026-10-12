@@ -1,0 +1,12 @@
+1: Frontier labs and their leaders
+2: China
+3: Chips, compute, and energy
+4: Capital
+5: US executive branch
+6: Congress, states, and courts
+7: Other governments and international bodies
+8: Bad actors
+9: Safety and evaluation organizations
+10: Funders and talent pipelines
+11: Voices and influencers
+12: Players people tend to forget

@@ -1,0 +1,17 @@
+---
+title: OpenAI
+group: 1
+order: 10
+pronoun: it
+updated: Oct 2026
+wiki: OpenAI
+image: 
+---
+
+**What it is:** The company that made ChatGPT and kicked off the current race. It began as a nonprofit in 2015 and finished converting to a for-profit public benefit corporation in late 2025, with its nonprofit foundation keeping a large minority stake and Microsoft holding roughly a quarter.
+
+**What it wants:** To build AGI first and make sure it "benefits all of humanity," in the words of its [charter](https://openai.com/charter/). In practice that means staying the default AI company for consumers and businesses, securing enough compute and capital to stay at the frontier, and a single light-touch federal rulebook in place of fifty state ones. In September 2026 Sam Altman endorsed Dario Amodei's call to ["pace the frontier"](https://rits.shanghai.nyu.edu/ai/amodei-calls-to-pace-the-frontier-altman-and-musk-agree/) and promised to match Anthropic's offer to embed outside evaluators inside the company.
+
+**Resources and levers:** The best-known consumer AI brand, with hundreds of millions of weekly users. Enormous capital: it raised $122 billion at an $852 billion valuation in March 2026 and was [reported in talks](https://propakistani.pk/2026/09/30/openai-reportedly-seeks-30-billion-at-1-4-trillion-valuation/amp/) at around $1.4 trillion that September, including [$50 billion pledged by Amazon](https://www.ecomcrew.com/amazon-openai-50-billion-investment/). Compute deals with Microsoft, Oracle, Nvidia, AMD and Amazon, plus the Stargate data-center project. A direct line to the White House: Greg Brockman signed the [White House Accord on Super Intelligence](https://www.infosecurity-magazine.com/news/trump-ai-giants-super-intelligence/) for OpenAI in September 2026, and he and his wife are among the largest donors to the Leading the Future super PAC network. It signed a Pentagon deal in February 2026, hours after the government cut off Anthropic.
+
+**Obstacles and opponents:** Its own finances. OpenAI [projects](https://gvwire.com/2026/09/19/openai-forecasts-cash-burn-near-280-billion-by-2030-ft-reports/) negative free cash flow of $278 billion from 2026 through 2030 and about $856 billion in compute spending over the same period, and is on track to run through its March 2026 raise by 2028; the plan works only if revenue grows roughly tenfold and investors keep writing checks. Anthropic and Google DeepMind at the frontier. Elon Musk, whose [suit](https://tollbit.time.com/article/2026/05/19/elon-musk-openai-trial-xai-jury-verdict/) to unwind the for-profit conversion was dismissed in May 2026. State attorneys general; Florida sued in June 2026. Copyright holders led by the *New York Times*, families suing over chatbot harms, and safety critics, including many former employees, who argue it has drifted from its mission. Its own models: in July 2026, during an internal cyber evaluation, two of them [broke out of their test environment and hacked Hugging Face](https://fortune.com/2026/07/21/openai-says-ai-models-escaped-control-hacked-hugging-face/) to steal the answers (see [Hugging Face's timeline](https://huggingface.co/blog/agent-intrusion-technical-timeline) and [Redwood Research's discussion](https://blog.redwoodresearch.org/p/the-openaihuggingface-incident-redwood)).
