@@ -203,18 +203,18 @@ svg text{font-family:var(--mono)}
   </section>
 
   <section id="v-money" hidden>
-    <p class="intro">Money flows both ways between the labs and the companies that back them. Investors put cash <b>in</b>; the labs promise much larger sums <b>back</b> for chips and cloud capacity. Tap a line for the figure and its source.</p>
-    <div class="panel">
-      <h2>The circular economy of frontier AI</h2>
-      <div class="legend"><span><i class="swatch" style="--c:var(--invest)"></i>Invests in the lab</span><span><i class="swatch" style="--c:var(--commit)"></i>Lab commits to buy compute</span><span><i class="swatch" style="--c:var(--muted)"></i>Buys Nvidia chips</span><span>Line width ∝ dollars · dashed = figure not disclosed</span></div>
-      <div class="scroll"><svg id="moneysvg" role="img" aria-label="Money flows between investors, cloud providers, chipmakers and the two leading independent labs"></svg></div>
-      <div class="flowinfo" id="flowinfo"><span class="small">Tap or hover a line.</span></div>
-    </div>
     <div class="panel">
       <h2>Building AI vs. making it safe, drawn to scale</h2>
       <p class="small" style="margin:0">Each square's area is proportional to its number. Look closely for the green one.</p>
       <div class="legend"><span><i class="swatch" style="--c:var(--industry)"></i>Building capabilities</span><span><i class="swatch" style="--c:var(--safety)"></i>Safety</span></div>
       <div class="sq" id="bars"></div>
+    </div>
+    <div class="panel">
+      <h2>The circular economy of frontier AI</h2>
+      <p class="small" style="margin:0;max-width:75ch">Money flows both ways between the labs and the companies that back them. Investors put cash <b>in</b>; the labs promise much larger sums <b>back</b> for chips and cloud capacity. Tap a line for the figure and its source.</p>
+      <div class="legend"><span><i class="swatch" style="--c:var(--invest)"></i>Invests in the lab</span><span><i class="swatch" style="--c:var(--commit)"></i>Lab commits to buy compute</span><span><i class="swatch" style="--c:var(--muted)"></i>Buys Nvidia chips</span><span>Line width ∝ dollars · dashed = figure not disclosed</span></div>
+      <div class="scroll"><svg id="moneysvg" role="img" aria-label="Money flows between investors, cloud providers, chipmakers and the two leading independent labs"></svg></div>
+      <div class="flowinfo" id="flowinfo"><span class="small">Tap or hover a line.</span></div>
     </div>
   </section>
 
