@@ -196,7 +196,7 @@ svg text{font-family:var(--mono)}
   </section>
 
   <section id="v-fights" hidden>
-    <p class="intro">Incentives are easiest to see in a live dispute. Pick a fight to see who lines up on each side, why, and who could tip it.</p>
+    <p class="intro">Incentives are easiest to see in a live dispute. Pick a fight to see who lines up on each side, why, and who could influence the outcome.</p>
     <div class="fightpick" id="fightpick"></div>
     <div id="fight"></div>
   </section>
@@ -218,7 +218,7 @@ svg text{font-family:var(--mono)}
   </section>
 
   <section id="v-stack" hidden>
-    <p class="intro">Frontier AI depends on a chain of inputs, and a few links in it are controlled by one or two companies. Those <b>chokepoints</b> are why chips sit at the center of US–China strategy. The middle column shows who pulls which lever.</p>
+    <p class="intro">Frontier AI depends on a chain of inputs, and a few links in it are controlled by one or two companies. Those <b>chokepoints</b> are why chips sit at the center of US–China strategy. The middle column shows other stakeholders and the levers each one holds.</p>
     <div class="stack" id="stack"></div>
   </section>
 
@@ -323,7 +323,7 @@ function renderFight(){
   const [a,b]=f.sides; const na=a.players.length, nb=b.players.length;
   const side=(s,c)=>`<div class="side" style="--sc:${c}"><h3>${esc(s.label)}</h3><ul>${s.players.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>`;
   $('#fight').innerHTML=`<div class="fight"><p class="kicker">The question</p><h2>${esc(f.question)}</h2><p class="stakes">${esc(f.stakes)}</p>
-  <div class="arena">${side(a,'var(--g1)')}<div class="swing"><h3>Could tip it</h3><ul>${f.swing.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>${side(b,'var(--g2)')}</div>
+  <div class="arena">${side(a,'var(--g1)')}<div class="swing"><h3>Could influence outcomes</h3><ul>${f.swing.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>${side(b,'var(--g2)')}</div>
   <div class="rope" style="--sa:var(--g1);--sb:var(--g2);--p:${Math.round(100*na/(na+nb))}%"></div><div class="ropelabel"><span>${na} players</span><span>headcount, not strength</span><span>${nb} players</span></div>
   <p class="status"><b>Where it stands:</b> ${esc(f.status)} <a href="${f.link}" target="_blank" rel="noopener">Source</a></p></div>`;
 }
@@ -384,7 +384,7 @@ function drawMoney(){
 
 /* ---------- supply chain ---------- */
 function renderStack(){
-  let h=`<div class="hd">US and allies</div><div class="hd mid">Who pulls the levers</div><div class="hd cn">China</div>`;
+  let h=`<div class="hd">US and allies</div><div class="hd mid">Other stakeholders</div><div class="hd cn">China</div>`;
   D.stack.slice().reverse().forEach(r=>{
     const cell=(arr,note)=>`<div class="chips">${arr.map(p=>chip(p[0])+(p[1]?' <span class="choke">Chokepoint</span>':'')).join('')}</div>${note?`<span class="note">${esc(note)}</span>`:''}`;
     h+=`<div class="cell"><span class="layer">${esc(r.layer)}</span>${cell(r.us,r.us_note)}</div>`;
