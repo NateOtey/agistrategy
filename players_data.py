@@ -496,22 +496,26 @@ MONEY_FLOWS = [
 
 # Scale comparison, in US dollars
 SCALE = [
-    {"unit": "Dollars per year", "ratio": "About $1,450 spent building AI for every $1 spent making it safe",
-     "note": "Capital spending is mostly chips and data centers, the raw material of capabilities. The safety figure counts everyone: philanthropy, governments, and the labs' own safety teams.",
+    {"unit": "Dollars per year", "ratio": "About $1,700 spent building AI for every $1 spent making it safe",
+     "note": "Capital spending is mostly chips and data centers, the raw material of capabilities. OpenAI and Anthropic rent most of their computing power from the companies counted here, so their spending is already inside this figure; adding it again would count it twice. Oracle's figure is for its fiscal year ending May 2027, and xAI's covers only the first half of 2026, so the true total is higher. The safety figure counts everyone: philanthropy, governments, and the labs' own safety teams.",
      "items": [
-        ("Big Tech's AI capital spending, 2026 (Amazon, Microsoft, Alphabet, Meta)", 725e9, "industry", "$725B",
-         "https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion"),
+        ("AI capital spending, 2026: Amazon, Microsoft, Alphabet, Meta, Oracle, CoreWeave and xAI", 860e9, "industry", "$860B+",
+         [("Big Four", "https://valueaddvc.com/ai-spending"),
+          ("Oracle", "https://www.tmtfinance.com/intel/2026-hyperscaler-capex-tops-us700bn-analysis"),
+          ("CoreWeave", "https://thestar.com.my/tech/tech-news/2026/08/12/coreweave-boosts-2026-spending-plan-beats-quarterly-estimates-on-ai-demand-surge"),
+          ("xAI", "https://pitchbook.com/news/articles/xais-neocloud-pivot-eats-up-82-7-of-spacex-capex")]),
         ("All AI safety spending worldwide, including inside the labs (estimate)", 500e6, "safety", "~$500M",
          "https://adityamenon.xyz/projects/ai-safety/ai-safety-rounding-error/"),
      ]},
     {"unit": "People working full-time", "ratio": "At least 27 capabilities researchers for every safety researcher",
-     "note": "OpenAI's staff alone outnumbers the entire safety field about four to one. Safety counts include the labs' safety teams; the capabilities figure is the low end of rough estimates (30,000 to 100,000).",
+     "note": "OpenAI's staff alone outnumbers the entire safety field about four to one. The safety count includes the labs' safety teams and comes from the most recent census (September 2025); the field has been growing about 20 to 25 percent a year. Nobody counts capabilities researchers carefully, so we use the low end of published estimates (30,000 to 100,000+).",
      "items": [
         ("AI capabilities researchers worldwide (low-end estimate)", 30000, "industry", "30,000+",
-         "https://www.longtermwiki.com/knowledge-base/metrics/safety-research"),
+         [("estimate range", "https://www.longtermwiki.com/knowledge-base/metrics/safety-research"),
+          ("100,000+ estimate (2022)", "https://www.lesswrong.com/posts/mC3oeq62DWeqxiNBx/estimating-the-current-and-future-number-of-ai-safety")]),
         ("OpenAI's staff alone, March 2026", 4500, "mid", "~4,500",
          "https://fortune.com/2026/03/21/openai-double-headcount-this-year-sam-altman-anthropic-google/"),
-        ("AI safety researchers worldwide, all organizations, 2025", 1100, "safety", "~1,100",
+        ("AI safety researchers worldwide, all organizations (counted September 2025)", 1100, "safety", "~1,100",
          "https://forum.effectivealtruism.org/posts/7YDyziQxkWxbGmF3u/ai-safety-field-growth-analysis-2025"),
      ]},
 ]

@@ -387,7 +387,7 @@ function drawMoney(){
     });
     if(tiny){const cx=tiny.side+2, cy=tiny.y+tiny.side/2;
       shapes+=`<circle cx="${tiny.side/2}" cy="${tiny.y+tiny.side/2}" r="${tiny.side/2+9}" fill="none" stroke="var(--safety)" stroke-width="1.5"/><path d="M${tiny.side+12},${tiny.y-6} L70,${tiny.y-60}" stroke="var(--safety)" stroke-width="1.5"/><text x="74" y="${tiny.y-64}" font-size="13" fill="var(--safety)">safety is here</text>`}
-    const items=panel.items.map(it=>`<li><i class="${it[2]==='mid'?'out':''}" style="--c:${it[2]==='mid'?'var(--muted)':`var(--${it[2]})`}"></i><b>${esc(it[3])}</b><span>${esc(it[0])} <a href="${it[4]}" target="_blank" rel="noopener" class="small">source</a></span></li>`).join('');
+    const items=panel.items.map(it=>`<li><i class="${it[2]==='mid'?'out':''}" style="--c:${it[2]==='mid'?'var(--muted)':`var(--${it[2]})`}"></i><b>${esc(it[3])}</b><span>${esc(it[0])} ${(Array.isArray(it[4])?it[4]:[["source",it[4]]]).map(s=>`<a href="${s[1]}" target="_blank" rel="noopener" class="small">${esc(s[0])}</a>`).join('<span class="small"> · </span>')}</span></li>`).join('');
     return `<div class="sqp"><h3>${esc(panel.unit)}</h3><p class="ratio">${esc(panel.ratio)}</p><svg viewBox="0 0 300 300" role="img" aria-label="${esc(panel.ratio)}">${shapes}</svg><ul>${items}</ul><p class="small">${esc(panel.note)}</p></div>`;
   }).join('');
 }
