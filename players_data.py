@@ -496,14 +496,24 @@ MONEY_FLOWS = [
 
 # Scale comparison, in US dollars
 SCALE = [
-    ("OpenAI's planned compute spending, 2026 to 2030", 856e9, "industry", "https://gvwire.com/2026/09/19/openai-forecasts-cash-burn-near-280-billion-by-2030-ft-reports/"),
-    ("Alphabet's 2026 capital spending (midpoint of guidance)", 180e9, "industry", "https://opendatascience.com/alphabet-resets-the-bar-for-ai-infrastructure-spending-with-2026-capex-forecast/"),
-    ("Meta's 2026 capital spending (midpoint of guidance)", 125e9, "industry", "https://opendatascience.com/alphabet-resets-the-bar-for-ai-infrastructure-spending-with-2026-capex-forecast/"),
-    ("OpenAI's March 2026 funding round", 122e9, "industry", "https://gvwire.com/2026/09/19/openai-forecasts-cash-burn-near-280-billion-by-2030-ft-reports/"),
-    ("xAI's 2025 operating loss", 6.4e9, "industry", "https://finance.yahoo.com/sectors/technology/articles/xai-burned-6-4b-last-222608682.html"),
-    ("Longview Philanthropy's AI safety giving, 2026 (estimate)", 350e6, "safety", "https://www.lesswrong.com/posts/GuwpKBEZwpw3ySmox/ai-safety-funder-bulletin"),
-    ("Leading the Future super PAC network, raised in late 2025", 125e6, "politics", "https://www.longtermwiki.com/knowledge-base/organizations/political-advocacy/leading-the-future"),
-    ("Anthropic's gift to the Public First super PACs", 20e6, "politics", "https://letsdatascience.com/news/ai-super-pacs-duel-over-midterm-spending-894242e9"),
+    {"unit": "Dollars per year", "ratio": "About $1,450 spent building AI for every $1 spent making it safe",
+     "note": "Capital spending is mostly chips and data centers, the raw material of capabilities. The safety figure counts everyone: philanthropy, governments, and the labs' own safety teams.",
+     "items": [
+        ("Big Tech's AI capital spending, 2026 (Amazon, Microsoft, Alphabet, Meta)", 725e9, "industry", "$725B",
+         "https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion"),
+        ("All AI safety spending worldwide, including inside the labs (estimate)", 500e6, "safety", "~$500M",
+         "https://adityamenon.xyz/projects/ai-safety/ai-safety-rounding-error/"),
+     ]},
+    {"unit": "People working full-time", "ratio": "At least 27 capabilities researchers for every safety researcher",
+     "note": "OpenAI's staff alone outnumbers the entire safety field about four to one. Safety counts include the labs' safety teams; the capabilities figure is the low end of rough estimates (30,000 to 100,000).",
+     "items": [
+        ("AI capabilities researchers worldwide (low-end estimate)", 30000, "industry", "30,000+",
+         "https://www.longtermwiki.com/knowledge-base/metrics/safety-research"),
+        ("OpenAI's staff alone, March 2026", 4500, "mid", "~4,500",
+         "https://fortune.com/2026/03/21/openai-double-headcount-this-year-sam-altman-anthropic-google/"),
+        ("AI safety researchers worldwide, all organizations, 2025", 1100, "safety", "~1,100",
+         "https://forum.effectivealtruism.org/posts/7YDyziQxkWxbGmF3u/ai-safety-field-growth-analysis-2025"),
+     ]},
 ]
 
 # ---------------------------------------------------------------------------

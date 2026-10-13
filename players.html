@@ -111,14 +111,16 @@ svg text{font-family:var(--mono)}
 .flow{cursor:pointer;transition:opacity .15s}
 .dimmed .flow{opacity:.18}
 .dimmed .flow.on{opacity:1}
-.bars{display:flex;flex-direction:column;gap:10px;margin-top:10px}
-.barrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:10px;align-items:center}
-.barrow .lab{font-size:14px;line-height:1.3}
-.barrow .track{position:relative;height:22px;background:var(--soft);border-radius:4px}
-.barrow .fill{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--c)}
-.barrow .val{position:absolute;right:4px;top:50%;transform:translateY(-50%);font:500 12px var(--mono);color:var(--ink);background:var(--surface);border-radius:3px;padding:1px 5px}
-.axis{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);gap:10px}
-.axis div:last-child{display:flex;justify-content:space-between;font:11px var(--mono);color:var(--muted)}
+.sq{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:28px;margin-top:14px}
+.sqp h3{font:600 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.sqp .ratio{font:700 19px/1.25 var(--display);margin:0 0 12px;text-wrap:balance}
+.sqp svg{width:100%;max-width:340px;aspect-ratio:1;display:block;overflow:visible}
+.sqp ul{list-style:none;padding:0;margin:12px 0 8px;display:flex;flex-direction:column;gap:8px}
+.sqp li{display:grid;grid-template-columns:14px auto 1fr;gap:8px;align-items:baseline;font-size:14px;line-height:1.35}
+.sqp li i{width:12px;height:12px;border-radius:2px;background:var(--c);transform:translateY(1px)}
+.sqp li i.out{background:none;border:1.5px dashed var(--c)}
+.sqp li b{font:600 13px var(--mono);white-space:nowrap}
+.sqp .small{margin:0}
 /* Stack */
 .stack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr) minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
 .stack .hd{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 12px;background:var(--soft);border-bottom:1px solid var(--line)}
@@ -165,7 +167,6 @@ svg text{font-family:var(--mono)}
   .ego{grid-template-columns:1fr}
   .center{order:-1;position:static}
   .ego svg.links{display:none}
-  .barrow,.axis{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -210,10 +211,10 @@ svg text{font-family:var(--mono)}
       <div class="flowinfo" id="flowinfo"><span class="small">Tap or hover a line.</span></div>
     </div>
     <div class="panel">
-      <h2>Dollars on the table</h2>
-      <p class="small" style="margin:0">Log scale: each gridline is ten times the last. Safety philanthropy and political money are a rounding error next to the industry's spending.</p>
-      <div class="legend"><span><i class="swatch" style="--c:var(--industry)"></i>Industry</span><span><i class="swatch" style="--c:var(--safety)"></i>Safety philanthropy</span><span><i class="swatch" style="--c:var(--politics)"></i>Political spending</span></div>
-      <div class="bars" id="bars"></div>
+      <h2>Building AI vs. making it safe, drawn to scale</h2>
+      <p class="small" style="margin:0">Each square's area is proportional to its number. Look closely for the green one.</p>
+      <div class="legend"><span><i class="swatch" style="--c:var(--industry)"></i>Building capabilities</span><span><i class="swatch" style="--c:var(--safety)"></i>Safety</span></div>
+      <div class="sq" id="bars"></div>
     </div>
   </section>
 
@@ -323,8 +324,8 @@ function renderFight(){
   const [a,b]=f.sides; const na=a.players.length, nb=b.players.length;
   const side=(s,c)=>`<div class="side" style="--sc:${c}"><h3>${esc(s.label)}</h3><ul>${s.players.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>`;
   $('#fight').innerHTML=`<div class="fight"><p class="kicker">The question</p><h2>${esc(f.question)}</h2><p class="stakes">${esc(f.stakes)}</p>
-  <div class="arena">${side(a,'var(--g1)')}<div class="swing"><h3>Could influence outcomes</h3><ul>${f.swing.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>${side(b,'var(--g2)')}</div>
-  <div class="rope" style="--sa:var(--g1);--sb:var(--g2);--p:${Math.round(100*na/(na+nb))}%"></div><div class="ropelabel"><span>${na} players</span><span>headcount, not strength</span><span>${nb} players</span></div>
+  <div class="arena">${side(a,'var(--backs)')}<div class="swing"><h3>Could influence outcomes</h3><ul>${f.swing.map(p=>`<li>${chip(p[0])}<span>${esc(p[1])}</span></li>`).join('')}</ul></div>${side(b,'var(--g2)')}</div>
+  <div class="rope" style="--sa:var(--backs);--sb:var(--g2);--p:${Math.round(100*na/(na+nb))}%"></div><div class="ropelabel"><span>${na} players</span><span>headcount, not strength</span><span>${nb} players</span></div>
   <p class="status"><b>Where it stands:</b> ${esc(f.status)} <a href="${f.link}" target="_blank" rel="noopener">Source</a></p></div>`;
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-pickfight]');if(b){fight=b.dataset.pickfight;renderFight()}});
@@ -376,10 +377,20 @@ function drawMoney(){
     p.addEventListener('mouseenter',showInfo);p.addEventListener('click',showInfo);p.addEventListener('focus',showInfo);
   });
   svg.addEventListener('mouseleave',()=>svg.classList.remove('dimmed'));
-  // scale bars
-  const lo=Math.log10(1e7),hi=Math.log10(1e12),pct=v=>(Math.log10(v)-lo)/(hi-lo)*100;
-  $('#bars').innerHTML=`<div class="axis"><div></div><div><span>$10M</span><span>$100M</span><span>$1B</span><span>$10B</span><span>$100B</span><span>$1T</span></div></div>`+
-    D.scale.map(s=>`<div class="barrow"><div class="lab">${esc(s[0])} <a href="${s[3]}" target="_blank" rel="noopener" class="small">source</a></div><div class="track"><div class="fill" style="width:${pct(s[1]).toFixed(1)}%;--c:var(--${s[2]})"></div><span class="val">${fmtB(s[1])}</span></div></div>`).join('');
+  // capabilities vs safety, area to scale
+  $('#bars').innerHTML=D.scale.map(panel=>{
+    const S=300, max=Math.max(...panel.items.map(i=>i[1]));
+    let shapes='', tiny=null;
+    panel.items.forEach(it=>{const side=S*Math.sqrt(it[1]/max), y=S-side, c=it[2]==='mid'?'var(--muted)':`var(--${it[2]})`;
+      shapes+=it[2]==='mid'?`<rect x="1" y="${y+1}" width="${side-2}" height="${side-2}" fill="none" stroke="${c}" stroke-width="2" stroke-dasharray="6 5"/>`
+        :`<rect x="0" y="${y}" width="${side}" height="${side}" fill="${c}" ${it[2]==='industry'?'opacity=".28"':''}/>`;
+      if(it[2]==='safety'&&side<40)tiny={side,y};
+    });
+    if(tiny){const cx=tiny.side+2, cy=tiny.y+tiny.side/2;
+      shapes+=`<circle cx="${tiny.side/2}" cy="${tiny.y+tiny.side/2}" r="${tiny.side/2+9}" fill="none" stroke="var(--safety)" stroke-width="1.5"/><path d="M${tiny.side+12},${tiny.y-6} L70,${tiny.y-60}" stroke="var(--safety)" stroke-width="1.5"/><text x="74" y="${tiny.y-64}" font-size="13" fill="var(--safety)">safety is here</text>`}
+    const items=panel.items.map(it=>`<li><i class="${it[2]==='mid'?'out':''}" style="--c:${it[2]==='mid'?'var(--muted)':`var(--${it[2]})`}"></i><b>${esc(it[3])}</b><span>${esc(it[0])} <a href="${it[4]}" target="_blank" rel="noopener" class="small">source</a></span></li>`).join('');
+    return `<div class="sqp"><h3>${esc(panel.unit)}</h3><p class="ratio">${esc(panel.ratio)}</p><svg viewBox="0 0 300 300" role="img" aria-label="${esc(panel.ratio)}">${shapes}</svg><ul>${items}</ul><p class="small">${esc(panel.note)}</p></div>`;
+  }).join('');
 }
 
 /* ---------- supply chain ---------- */
