@@ -152,7 +152,7 @@ def build_glossary():
     tpl = open(files['template'], encoding='utf-8').read()
     page = ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<meta name="description" content="A plain-language glossary of AGI strategy terms, organized by the units of BlueDot Impact\'s AGI Strategy course.">'
+            '<meta name="description" content="A plain-language glossary of key ideas in AGI strategy, from the race between labs to the strategies for getting through it safely.">'
             '</head><body>\n' + tpl.replace('__DATA__', data) + '\n</body></html>\n')
     os.makedirs(os.path.join(OUT, 'glossary'), exist_ok=True)
     open(os.path.join(OUT, 'glossary', 'index.html'), 'w', encoding='utf-8').write(page)

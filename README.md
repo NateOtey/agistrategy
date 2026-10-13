@@ -3,7 +3,7 @@
 Source for agistrategy.app. Cloudflare Pages rebuilds the site every time this repository changes.
 
 - Each glossary entry is its own `.md` file, e.g. `scheming.md`. The file name is the entry's web address, so `scheming.md` becomes `agistrategy.app/glossary/#scheming`.
-- `units.txt` lists the course units.
+- `units.txt` lists the glossary's sections (shown on the site as Part 1, Part 2, and so on).
 - `glossary.html` controls the look of the glossary.
 - Files can sit side by side or in folders; the build finds them either way.
 - `build.py` turns all of the above into the finished site in `public/`. Don't edit `public/` by hand.
@@ -28,7 +28,7 @@ aliases: Deceptive alignment; Sleeper agents
 
 - **title** is the full name, shown on the card and in the reader.
 - **short** is the label used in links and on the map.
-- **unit** is the course unit the entry belongs to.
+- **unit** is the section (Part) the entry belongs to.
 - **order** sets the position within the unit, lowest first. Numbers go up by 10, so you can slot a new entry in between, e.g. at 65.
 - **aliases** are other names that should find this entry, separated by semicolons. They show up in search and as "Also find" in the A–Z view.
 

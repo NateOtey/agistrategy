@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a deck of index cards, one row per course unit (or one per letter), each opening into a full reading view; plus a flashcard study mode and a link map. */
+/* Layout: a deck of index cards, one row per section (or one per letter), each opening into a full reading view; plus a flashcard study mode and a link map. */
 :root{
   --bg:#F2F5FA; --surface:#FFFFFF; --sunk:#E8EDF5; --ink:#16223A; --muted:#58657F; --line:#D6DEEA; --accent:#2B59C3; --accent-ink:#FFFFFF;
   --u1:#2B59C3; --u2:#0B7F73; --u3:#B8423A; --u4:#6A4CB8; --u5:#B07A0C;
@@ -190,7 +190,7 @@ body.lock{overflow:hidden}
       </label>
       <span class="group"><span class="seg-label">Order</span>
         <span class="seg" role="group" aria-label="Order entries">
-          <button id="sort-unit" data-sort="unit" aria-pressed="true">By unit</button>
+          <button id="sort-unit" data-sort="unit" aria-pressed="true">By topic</button>
           <button id="sort-az" data-sort="az" aria-pressed="false">A–Z</button>
         </span>
       </span>
@@ -279,7 +279,7 @@ function firstLetter(t){ const c=t.trim()[0].toUpperCase(); return /[A-Z]/.test(
 
 function cardHTML(e){
   return `<button class="card" style="--uc:${uc(e.unit)}" data-open="${e.id}">
-    <span class="tag"><span class="dot"></span>Unit ${e.unit}</span>
+    <span class="tag"><span class="dot"></span>Part ${e.unit}</span>
     <h3>${esc(e.title)}</h3><p>${esc(e.lede)}</p>
     <span class="links">${e.related.length} related terms</span></button>`;
 }
@@ -291,7 +291,7 @@ function renderCards(){
   if(sort==='unit'){
     for(const u of U){
       const items=list.filter(e=>e.unit===u.n); if(!items.length) continue;
-      h+=`<section class="grp" id="g-u${u.n}" style="--uc:${uc(u.n)}"><div class="grp-head"><span class="eyebrow">Unit ${u.n}</span><h2>${esc(u.title)}</h2><span class="n">${items.length} terms</span></div><div class="grid">${items.map(cardHTML).join('')}</div></section>`;
+      h+=`<section class="grp" id="g-u${u.n}" style="--uc:${uc(u.n)}"><div class="grp-head"><span class="eyebrow">Part ${u.n}</span><h2>${esc(u.title)}</h2><span class="n">${items.length} terms</span></div><div class="grid">${items.map(cardHTML).join('')}</div></section>`;
     }
   } else {
     const groups={};
@@ -332,8 +332,8 @@ function openEntry(id,{push=true}={}){
   cur=id; const i=navList.indexOf(id);
   if(!$('#reader').hidden===false) lastFocus=document.activeElement;
   const r=$('#reader'); r.style.setProperty('--uc',uc(e.unit));
-  $('#r-tag').innerHTML=`<span class="dot"></span>Unit ${e.unit} · ${esc(unitName(e.unit))}`;
-  $('#r-pos').textContent=`${i+1} of ${navList.length} · ${sort==='unit'?'by unit':'A–Z'}`;
+  $('#r-tag').innerHTML=`<span class="dot"></span>Part ${e.unit} · ${esc(unitName(e.unit))}`;
+  $('#r-pos').textContent=`${i+1} of ${navList.length} · ${sort==='unit'?'by topic':'A–Z'}`;
   const sec=(cls,label,html)=>html?`<div class="sec ${cls}"><h4>${label}</h4><div class="prose">${html}</div></div>`:'';
   const rel=e.related.map(r=>byId[r]).map(x=>`<button class="chip" style="--uc:${uc(x.unit)}" data-open="${x.id}"><span class="dot"></span>${esc(x.title)}</button>`).join('');
   $('#r-body').innerHTML=`<h2 id="r-title">${esc(e.title)}</h2>${e.aliases.length?`<p class="akas">Also covers: ${e.aliases.map(esc).join(' · ')}</p>`:''}`+
@@ -387,14 +387,14 @@ let qt; $('#q').addEventListener('input',e=>{ clearTimeout(qt); qt=setTimeout(()
 
 /* study */
 const sel=$('#study-unit');
-sel.innerHTML=`<option value="all">All units (${E.length} cards)</option>`+U.map(u=>`<option value="${u.n}">Unit ${u.n}: ${esc(u.title)} (${E.filter(e=>e.unit===u.n).length})</option>`).join('');
+sel.innerHTML=`<option value="all">All units (${E.length} cards)</option>`+U.map(u=>`<option value="${u.n}">Part ${u.n}: ${esc(u.title)} (${E.filter(e=>e.unit===u.n).length})</option>`).join('');
 let deck=[], di=0, shuffled=false;
 function buildDeck(){ const v=sel.value; deck=order().filter(e=>v==='all'||e.unit===+v).map(e=>e.id);
   if(shuffled){ for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];} }
   di=0; showCard(); }
 function showCard(){ const e=byId[deck[di]]; if(!e) return; $('#flip').classList.remove('on');
   const f=$('#flip'); f.style.setProperty('--uc',uc(e.unit));
-  const top=`<div class="top"><span class="tag" style="--uc:${uc(e.unit)}"><span class="dot"></span>Unit ${e.unit}</span><span class="ct">${di+1} / ${deck.length}</span></div>`;
+  const top=`<div class="top"><span class="tag" style="--uc:${uc(e.unit)}"><span class="dot"></span>Part ${e.unit}</span><span class="ct">${di+1} / ${deck.length}</span></div>`;
   $('#front').innerHTML=top+`<h3>${esc(e.title)}</h3><span class="hint">Tap or press space to see the definition</span>`;
   $('#back').innerHTML=top+`<h4 class="back-title">${esc(e.title)}</h4><div class="prose">${e.def}</div><a class="more" data-open="${e.id}">Open the full entry →</a>`;
   $('#study-count').textContent=shuffled?'Shuffled':'In order';
@@ -426,7 +426,7 @@ document.addEventListener('keydown',ev=>{
 let mapDrawn=false;
 function drawMap(){
   if(mapDrawn) return; mapDrawn=true;
-  $('#legend').innerHTML=U.map(u=>`<span><span class="dot" style="--uc:${uc(u.n)}"></span>Unit ${u.n}: ${esc(u.title)}</span>`).join('');
+  $('#legend').innerHTML=U.map(u=>`<span><span class="dot" style="--uc:${uc(u.n)}"></span>Part ${u.n}: ${esc(u.title)}</span>`).join('');
   const W=1100,H=820; const centers={1:[200,150],2:[880,140],3:[190,600],4:[650,520],5:[1000,760]};
   let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
   const N=E.map(e=>({id:e.id,u:e.unit,x:centers[e.unit][0]+(rnd()-.5)*120,y:centers[e.unit][1]+(rnd()-.5)*120,vx:0,vy:0}));
