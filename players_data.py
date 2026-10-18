@@ -513,16 +513,17 @@ SCALE = [
         ("All AI safety spending worldwide, including inside the labs (estimate)", 500e6, "safety", "~$500M",
          "https://adityamenon.xyz/projects/ai-safety/ai-safety-rounding-error/"),
      ]},
-    {"unit": "People", "ratio": "One AI research conference drew 24 times as many people as the entire safety field employs",
-     "note": "OpenAI's staff alone outnumbers the safety field about four to one. The safety count covers technical and governance staff at dedicated AI safety organizations (about 600 and 500 respectively) and comes from the most recent census (September 2025); it leaves out most frontier labs' own safety teams and people working on safety elsewhere, so it is an undercount. Broader estimates that include them, such as BlueDot's, put the number working full-time on making AI go well at 2,000 to 3,000. The field has been growing about 20 to 25 percent a year. NeurIPS is a rough stand-in for the people building AI: some attendees work on safety, and many more AI researchers never attend. Zeki Data's 2025 talent report covered 800,000 top AI professionals worldwide.",
+    {"unit": "People", "ratio": "One AI research conference drew about ten times as many people as work full-time on making AI go well",
+     "note": "OpenAI's staff alone outnumbers everyone working full-time on making AI go well, by roughly 1.5 to 2 times. The 2,000 to 3,000 figure is BlueDot co-founder Dewi Erwan's estimate (September 2026) and is drawn here at its midpoint. It is broader than the most recent census of dedicated AI safety organizations, which counted about 1,100 technical and governance staff in September 2025 but left out most frontier labs' own safety teams. The field has been growing about 20 to 25 percent a year. NeurIPS is a rough stand-in for the people building AI: some attendees work on safety, and many more AI researchers never attend. Zeki Data's 2025 talent report covered 800,000 top AI professionals worldwide.",
      "items": [
         ("Registered for NeurIPS 2025, the largest AI research conference", 26382, "industry", "~26,000",
          [("NeurIPS fact sheet", "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"),
           ("Zeki talent report", "https://aiworld.eu/story/the-state-of-ai-talent-in-2025")]),
         ("OpenAI's staff alone, March 2026", 4500, "mid", "~4,500",
          "https://fortune.com/2026/03/21/openai-double-headcount-this-year-sam-altman-anthropic-google/"),
-        ("Full-time staff at AI safety organizations worldwide, technical and governance (counted September 2025)", 1100, "safety", "~1,100",
-         "https://forum.effectivealtruism.org/posts/7YDyziQxkWxbGmF3u/ai-safety-field-growth-analysis-2025"),
+        ("People working full-time on making AI go well, worldwide (estimate, September 2026)", 2500, "safety", "2,000–3,000",
+         [("Dewi Erwan, BlueDot", "https://blog.bluedot.org/p/owners"),
+          ("2025 census of safety orgs", "https://forum.effectivealtruism.org/posts/7YDyziQxkWxbGmF3u/ai-safety-field-growth-analysis-2025")]),
      ]},
 ]
 
