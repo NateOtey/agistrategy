@@ -438,7 +438,7 @@ function renderTL(){
   if(sel.options.length<2){const ids=[...new Set(D.timeline.flatMap(e=>e[3]))].sort((a,b)=>name(a).localeCompare(name(b)));ids.forEach(id=>sel.add(new Option(name(id),id)));sel.onchange=renderTL}
   const who=sel.value; let h='',yr='';
   D.timeline.forEach(e=>{const y=e[0].slice(0,4);if(y!==yr){yr=y;h+=`<div class="yr">${y}</div>`}
-    h+=`<div class="ev ${who&&!e[3].includes(who)?'faded':''}"><span class="when">${fmt(e[0])}</span><h3>${esc(e[1])}</h3><p>${esc(e[2])} <a href="${e[4]}" target="_blank" rel="noopener" class="small">Source</a></p><div class="who">${e[3].map(chip).join('')}</div></div>`});
+    h+=`<div class="ev ${who&&!e[3].includes(who)?'faded':''}"><span class="when">${fmt(e[0])}</span><h3>${esc(e[1])}</h3><p>${esc(e[2])} ${(Array.isArray(e[4])?e[4]:[["Source",e[4]]]).map(s=>`<a href="${s[1]}" target="_blank" rel="noopener" class="small">${esc(s[0])}</a>`).join('<span class="small"> · </span>')}</p><div class="who">${e[3].map(chip).join('')}</div></div>`});
   $('#tl').innerHTML=h;
 }
 
