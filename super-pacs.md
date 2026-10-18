@@ -12,6 +12,6 @@ image:
 
 **What they want:** Leading the Future wants a federal standard over state "patchworks" and to punish politicians who push AI safety laws. Public First wants to elect candidates of both parties who support safety regulation.
 
-**Resources and levers:** Combined spending in the tens of millions, with more than $100 million more [pledged](https://letsdatascience.com/news/ai-super-pacs-duel-over-midterm-spending-894242e9). Ads, which [often avoid mentioning AI at all](https://www.nbcnews.com/politics/politics-news/ads-funded-ai-groups-arent-ai-politics-desk-rcna261041). The threat of spending, which can deter candidates as much as the spending itself.
+**Resources and levers:** Leading the Future alone has [raised more than $140 million](https://en.wikipedia.org/wiki/Leading_the_Future), and spent $8 million against Alex Bores; Anthropic [pledged $20 million](https://news.bloomberglaw.com/bloomberg-government-news/anthropic-pledges-20-million-to-candidates-who-favor-ai-safety) to Public First. Ads, which [often avoid mentioning AI at all](https://www.nbcnews.com/politics/politics-news/ads-funded-ai-groups-arent-ai-politics-desk-rcna261041). The threat of spending, which can deter candidates as much as the spending itself.
 
 **Obstacles and opponents:** Each other. Public polling, which shows broad support for AI regulation. Candidates who turn the PAC spending against them as a campaign issue.

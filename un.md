@@ -8,7 +8,7 @@ wiki: Palais des Nations
 image: 
 ---
 
-**What it is:** In August 2025, the UN General Assembly created an Independent International Scientific Panel on AI and a Global Dialogue on AI Governance, which [met in Geneva](https://aiweekly.co/alerts/un-opens-geneva-ai-dialogue-as-bengio-warns-of-catastrophic-risk) in July 2026. Yoshua Bengio co-chairs the scientific panel.
+**What it is:** In August 2025, the UN General Assembly created an Independent International Scientific Panel on AI and a Global Dialogue on AI Governance, which [met in Geneva](https://www.unognewsroom.org/story/en/3190/global-dialogue-on-ai-governance-opening-session/9492) in July 2026. Yoshua Bengio co-chairs the scientific panel.
 
 **What it wants:** Inclusive global governance of AI, with a voice for countries outside the US and China, shared scientific assessment of risks, and capacity-building for developing countries. Many participants support "red lines" for AI; more than 300 prominent figures have signed a [call for them](https://red-lines.ai) launched at the 2025 General Assembly.
 

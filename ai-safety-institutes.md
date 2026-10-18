@@ -16,4 +16,4 @@ aliases: AI Security Institute; CAISI
 
 **Related terms:** Evals and red teaming · Frontier AI regulation · International coordination and treaties
 
-**Go deeper:** Accessible: [AI Safety Institutes (AISIs)](https://www.longtermwiki.com/wiki/E13), Longterm Wiki (note: no longer actively maintained). Serious: [AI Security Institute](https://www.aisi.gov.uk/), UK Government
+**Go deeper:** Accessible: [Artificial intelligence safety institute](https://en.wikipedia.org/wiki/Artificial_intelligence_safety_institute), Wikipedia. Serious: [AI Security Institute](https://www.aisi.gov.uk/), UK Government

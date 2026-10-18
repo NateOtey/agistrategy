@@ -10,7 +10,7 @@ image:
 
 **Who they are:** The stock and bond investors whose money funds the AI build-out: index funds, pension funds, hedge funds and bond buyers. AI-linked companies now make up a large share of the S&P 500, so most Americans with retirement savings have a stake.
 
-**What they want:** Returns. As long as they expect AI spending to pay off, they will fund it. Skeptics have asked since 2025 whether revenue can ever justify capital spending that now runs to [hundreds of billions of dollars a year](https://opendatascience.com/alphabet-resets-the-bar-for-ai-infrastructure-spending-with-2026-capex-forecast/) at Alphabet, Meta, Amazon and Microsoft alone, and whether "circular" deals among AI firms (chipmakers investing in labs that buy their chips, clouds investing in labs that rent their servers) are inflating demand.
+**What they want:** Returns. As long as they expect AI spending to pay off, they will fund it. Skeptics have asked since 2025 whether revenue can ever justify capital spending that now runs to [hundreds of billions of dollars a year](https://news.bloomberglaw.com/artificial-intelligence/alphabets-205-billion-spending-target-fuels-ai-cost-fears-2) at Alphabet, Meta, Amazon and Microsoft alone, and whether "circular" deals among AI firms (chipmakers investing in labs that buy their chips, clouds investing in labs that rent their servers) are inflating demand.
 
 **Resources and levers:** The cost of capital. If investors sour, financing for data centers, labs and chips dries up, which could slow AI development more than any regulation.
 

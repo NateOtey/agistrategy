@@ -8,7 +8,7 @@ wiki: Amazon (company)
 image: 
 ---
 
-**What it is:** The world's largest cloud provider through AWS. It invested heavily in Anthropic and built Project Rainier, a giant cluster of its own Trainium chips, largely for Anthropic. In February 2026 it also committed [up to $50 billion](https://www.ecomcrew.com/amazon-openai-50-billion-investment/) to OpenAI.
+**What it is:** The world's largest cloud provider through AWS. It invested heavily in Anthropic and built Project Rainier, a giant cluster of its own Trainium chips, largely for Anthropic. In February 2026 it also committed [up to $50 billion](https://www.geekwire.com/2026/amazon-invests-50b-in-openai-deepens-aws-partnership-with-expanded-100b-cloud-deal/) to OpenAI.
 
 **What it wants:** For AWS to stay the default place to build and run AI, and to reduce its reliance on Nvidia by getting top labs onto Amazon's own chips. Backing both leading independent labs keeps it close to the frontier without building one itself.
 

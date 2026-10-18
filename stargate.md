@@ -14,4 +14,4 @@ image:
 
 **Resources and levers:** Commitments from some of the largest pools of capital in the world, political sponsorship from the President, and Oracle's construction and operating capacity.
 
-**Obstacles and opponents:** Financing on a scale that requires investors to keep believing in OpenAI's growth, at a time when OpenAI itself [projects](https://gvwire.com/2026/09/19/openai-forecasts-cash-burn-near-280-billion-by-2030-ft-reports/) $278 billion in negative cash flow through 2030. Power, permitting, turbines and transformers, all in short supply. Local opposition to data centers. Doubts about whether the announced numbers will all materialize.
+**Obstacles and opponents:** Financing on a scale that requires investors to keep believing in OpenAI's growth, at a time when OpenAI itself [projects](https://www.thestar.com.my/tech/tech-news/2026/09/19/openai-forecasts-cash-burn-near-280-billion-by-2030-ft-reports) $278 billion in negative cash flow through 2030. Power, permitting, turbines and transformers, all in short supply. Local opposition to data centers. Doubts about whether the announced numbers will all materialize.
