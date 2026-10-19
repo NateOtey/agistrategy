@@ -12,7 +12,7 @@ aliases:
 - **Alignment:** an AI system's goals and values match what its developers, and ideally humanity, intend.
 - **Control:** humans can monitor, constrain, correct, and stop AI systems, even if alignment has failed.
 
-**Example or analogy:** Suppose you hire a house-sitter. Alignment means hiring someone trustworthy who wants what you want for your house. Control means locks on the liquor cabinet, a camera on the front door, and a spare key you can take back. Safety means the house is still standing when you return, whether thanks to the sitter's character, your precautions, or both. (Most homeowners, sensibly, rely on both.)
+**Example or analogy:** Suppose you hire a house-sitter. Alignment means hiring someone trustworthy who wants what you want for your house. Control means locks on the liquor cabinet, a camera on the front door, and a spare key you can take back. Safety means the house is still standing when you return, whether thanks to the sitter's character, your precautions, or both.
 
 **Relevance to strategy:** Strategies differ in which goal they lean on. Alignment research bets on making AI trustworthy; control research, associated especially with Redwood Research, assumes AI might not be trustworthy and tries to limit the damage; governance and security work address safety more broadly, including misuse by humans. Leading lab plans, such as Google DeepMind's approach to technical AGI safety, combine all three. The goals can also pull against each other. A highly controllable AI is easy to correct and also easy to misuse by whoever holds the controls, while an AI with strong values of its own resists misuse and may also resist correction.
 

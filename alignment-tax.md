@@ -8,7 +8,7 @@ aliases:
 
 **Definition:** The extra cost of making an AI system safe rather than merely capable, measured in time, money, computing power, or lost performance.
 
-**Example or analogy:** Seatbelts, airbags, and crash testing add cost and development time to every car. If customers do not value them and a competitor skips them, the careful carmaker loses sales. Once regulation requires them of every manufacturer, the cost no longer puts anyone at a disadvantage, and the question of whether to include them more or less disappears. (Few people today shop for a car by asking whether it comes with brakes.)
+**Example or analogy:** Seatbelts, airbags, and crash testing add cost and development time to every car. If customers do not value them and a competitor skips them, the careful carmaker loses sales. Once regulation requires them of every manufacturer, the cost no longer puts anyone at a disadvantage, and the question of whether to include them more or less disappears.
 
 **Relevance to strategy:** The size of the tax determines how much racing hurts. If safety is nearly free, even fiercely competitive labs will adopt it. If it is expensive, labs face a trade-off, and racing pressure pushes them to skimp. That points to two broad strategies. Researchers can try to make the tax smaller by developing cheaper and more effective safety techniques. Policymakers can try to make everyone pay it, through regulation, standards, or purchasing requirements, so that careful developers are not punished for being careful.
 

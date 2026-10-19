@@ -15,7 +15,7 @@ aliases:
 - **Trustworthiness:** the system would not try, because it has been shown to be aligned.
 - **Deference:** trusted AI advisors judge the system to be safe.
 
-The first argument is the easiest to make today and gets harder with every model generation. (Arguing that a system is too weak to be dangerous has an unusually short shelf life in this industry.)
+The first argument is the easiest to make today and gets harder with every model generation.
 
 **Relevance to strategy:** Safety cases shift the burden of proof onto developers, who must show that a model is safe before anyone has to prove that it is dangerous. Several proposals, including the AI Futures Project's "Plan A," envision regulation built around safety cases. Early versions already exist in the form of company risk reports reviewed by outside organizations, e.g. METR's review of Anthropic's sabotage risk report. The concept also gives strategists a useful test for any research agenda: which part of which safety case would this work make stronger?
 
