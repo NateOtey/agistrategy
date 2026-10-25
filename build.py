@@ -15,7 +15,7 @@ problems = []
 def inline(t):
     t = t.replace('\\[', '[').replace('\\]', ']').replace('\\_', '_')
     t = html.escape(t, quote=False)
-    t = re.sub(r'\[([^\]]+)\]\(<?([^)>]+(?:\([^)]*\))?[^)>]*)>?\)',
+    t = re.sub(r'\[([^\]]+)\]\((?:&lt;)?(https?://(?:(?!&gt;)[^()"\s])*(?:\([^()"\s]*\)(?:(?!&gt;)[^()"\s])*)*)(?:&gt;)?\)',
                lambda m: f'<a href="{m.group(2)}" target="_blank" rel="noopener">{m.group(1)}</a>', t)
     t = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', t)
     t = re.sub(r'(?<![*\w])\*([^*]+)\*(?!\*)', r'<em>\1</em>', t)
